@@ -1,0 +1,104 @@
+
+char_3.png
+size: 544,224
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+bdy
+  rotate: true
+  xy: 0, 6
+  size: 216, 280
+  orig: 216, 280
+  offset: 0, 0
+  index: -1
+chan P
+  rotate: false
+  xy: 501, 118
+  size: 40, 51
+  orig: 40, 51
+  offset: 0, 0
+  index: -1
+chan T
+  rotate: false
+  xy: 496, 171
+  size: 41, 51
+  orig: 41, 51
+  offset: 0, 0
+  index: -1
+mat buon
+  rotate: false
+  xy: 358, 68
+  size: 93, 30
+  orig: 93, 30
+  offset: 0, 0
+  index: -1
+mat mo
+  rotate: false
+  xy: 428, 39
+  size: 88, 27
+  orig: 88, 27
+  offset: 0, 0
+  index: -1
+mat nham
+  rotate: false
+  xy: 428, 2
+  size: 88, 10
+  orig: 88, 10
+  offset: 0, 0
+  index: -1
+mat vui
+  rotate: false
+  xy: 428, 14
+  size: 92, 23
+  orig: 92, 23
+  offset: 0, 0
+  index: -1
+mo
+  rotate: false
+  xy: 452, 166
+  size: 42, 56
+  orig: 42, 56
+  offset: 0, 0
+  index: -1
+non
+  rotate: true
+  xy: 358, 100
+  size: 122, 92
+  orig: 122, 92
+  offset: 0, 0
+  index: -1
+riu
+  rotate: false
+  xy: 282, 61
+  size: 74, 161
+  orig: 74, 162
+  offset: 0, 0
+  index: -1
+tai P
+  rotate: true
+  xy: 452, 114
+  size: 50, 47
+  orig: 51, 48
+  offset: 1, 1
+  index: -1
+tai T
+  rotate: true
+  xy: 453, 68
+  size: 44, 50
+  orig: 45, 52
+  offset: 0, 1
+  index: -1
+tay P
+  rotate: true
+  xy: 361, 0
+  size: 66, 65
+  orig: 66, 65
+  offset: 0, 0
+  index: -1
+tay T
+  rotate: false
+  xy: 282, 9
+  size: 77, 50
+  orig: 77, 50
+  offset: 0, 0
+  index: -1

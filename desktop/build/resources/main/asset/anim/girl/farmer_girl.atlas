@@ -1,0 +1,237 @@
+
+farmer_girl.png
+size: 988,1036
+format: RGBA8888
+filter: Linear,Linear
+repeat: none
+ban tay P buon
+  rotate: false
+  xy: 211, 2
+  size: 105, 84
+  orig: 105, 84
+  offset: 0, 0
+  index: -1
+ban tay T buon
+  rotate: true
+  xy: 807, 166
+  size: 112, 93
+  orig: 112, 93
+  offset: 0, 0
+  index: -1
+ban tay T votay
+  rotate: false
+  xy: 900, 323
+  size: 69, 118
+  orig: 69, 118
+  offset: 0, 0
+  index: -1
+body
+  rotate: true
+  xy: 328, 3
+  size: 197, 230
+  orig: 197, 230
+  offset: 0, 0
+  index: -1
+cang chan T
+  rotate: false
+  xy: 680, 140
+  size: 125, 145
+  orig: 125, 145
+  offset: 0, 0
+  index: -1
+cang tay P
+  rotate: false
+  xy: 903, 97
+  size: 73, 87
+  orig: 74, 88
+  offset: 1, 0
+  index: -1
+cang tay P buon
+  rotate: true
+  xy: 807, 105
+  size: 59, 94
+  orig: 59, 94
+  offset: 0, 0
+  index: -1
+cang tay T
+  rotate: false
+  xy: 916, 534
+  size: 72, 87
+  orig: 72, 87
+  offset: 0, 0
+  index: -1
+cang tay T buon
+  rotate: false
+  xy: 916, 443
+  size: 70, 89
+  orig: 70, 89
+  offset: 0, 0
+  index: -1
+cang tay T votay
+  rotate: true
+  xy: 902, 230
+  size: 91, 64
+  orig: 91, 64
+  offset: 0, 0
+  index: -1
+chan P
+  rotate: false
+  xy: 649, 450
+  size: 146, 179
+  orig: 146, 179
+  offset: 0, 0
+  index: -1
+dau
+  rotate: false
+  xy: 0, 88
+  size: 326, 326
+  orig: 327, 326
+  offset: 0, 0
+  index: -1
+dau goi T
+  rotate: false
+  xy: 679, 29
+  size: 112, 109
+  orig: 112, 109
+  offset: 0, 0
+  index: -1
+hat sau
+  rotate: false
+  xy: 0, 662
+  size: 679, 372
+  orig: 680, 374
+  offset: 0, 1
+  index: -1
+hat truoc
+  rotate: false
+  xy: 0, 416
+  size: 647, 244
+  orig: 648, 261
+  offset: 1, 16
+  index: -1
+juice basket om
+  rotate: false
+  xy: 328, 202
+  size: 255, 212
+  orig: 255, 212
+  offset: 0, 0
+  index: -1
+long may bth+vui
+  rotate: true
+  xy: 645, 25
+  size: 179, 32
+  orig: 179, 32
+  offset: 0, 0
+  index: -1
+long may buon
+  rotate: true
+  xy: 560, 20
+  size: 180, 33
+  orig: 180, 39
+  offset: 0, 3
+  index: -1
+ma hong
+  rotate: true
+  xy: 927, 828
+  size: 206, 50
+  orig: 206, 50
+  offset: 0, 0
+  index: -1
+mat buon
+  rotate: false
+  xy: 0, 0
+  size: 209, 86
+  orig: 209, 86
+  offset: 0, 0
+  index: -1
+mat mo bth
+  rotate: true
+  xy: 585, 206
+  size: 208, 93
+  orig: 208, 93
+  offset: 0, 0
+  index: -1
+mat nham bth+vui
+  rotate: true
+  xy: 927, 623
+  size: 203, 38
+  orig: 203, 38
+  offset: 0, 0
+  index: -1
+mat nham buon
+  rotate: true
+  xy: 595, 1
+  size: 203, 48
+  orig: 203, 48
+  offset: 0, 0
+  index: -1
+mat vui
+  rotate: false
+  xy: 681, 631
+  size: 208, 71
+  orig: 208, 71
+  offset: 0, 0
+  index: -1
+mieng buon
+  rotate: true
+  xy: 968, 276
+  size: 45, 20
+  orig: 45, 20
+  offset: 0, 0
+  index: -1
+mieng cuoi
+  rotate: true
+  xy: 891, 650
+  size: 52, 24
+  orig: 52, 24
+  offset: 0, 0
+  index: -1
+mieng mo
+  rotate: false
+  xy: 902, 186
+  size: 58, 42
+  orig: 58, 42
+  offset: 0, 0
+  index: -1
+tay P om
+  rotate: true
+  xy: 888, 29
+  size: 66, 76
+  orig: 66, 76
+  offset: 0, 0
+  index: -1
+tay T om
+  rotate: false
+  xy: 793, 26
+  size: 93, 77
+  orig: 93, 77
+  offset: 0, 0
+  index: -1
+toc P
+  rotate: false
+  xy: 797, 457
+  size: 117, 172
+  orig: 117, 172
+  offset: 0, 0
+  index: -1
+toc mai 1
+  rotate: false
+  xy: 821, 280
+  size: 77, 175
+  orig: 77, 175
+  offset: 0, 0
+  index: -1
+toc mai 2
+  rotate: false
+  xy: 680, 287
+  size: 139, 161
+  orig: 139, 161
+  offset: 0, 0
+  index: -1
+toc mai 3
+  rotate: true
+  xy: 681, 704
+  size: 330, 244
+  orig: 332, 246
+  offset: 1, 1
+  index: -1
