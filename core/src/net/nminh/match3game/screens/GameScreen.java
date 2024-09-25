@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Rectangle;
 
 import net.nminh.match3game.Match3Game;
 import net.nminh.match3game.actors.Background;
+import net.nminh.match3game.actors.Board;
 import net.nminh.match3game.actors.FramesPerSecond;
 import net.nminh.match3game.utils.Consts;
 
@@ -16,6 +17,7 @@ public class GameScreen extends ParentScreen
     OrthographicCamera cam;
     FramesPerSecond fps;
     Background gameBG;
+    Board board;
 
     public GameScreen()
     {
@@ -32,6 +34,7 @@ public class GameScreen extends ParentScreen
         game.batch = new SpriteBatch();
         setUpFPS();
         setUpBG();
+        setUpBoard();
     }
 
     private void setUpFPS()
@@ -46,13 +49,19 @@ public class GameScreen extends ParentScreen
     private void setUpBG()
     {
         gameBG = new Background(Consts.ROW, Consts.COL, Consts.SIZE, Consts.POSITION);
-        gameBG.setZIndex(0);
         addActor(gameBG);
+    }
+
+    private void setUpBoard()
+    {
+        board = new Board(Consts.ROW, Consts.COL, Consts.SIZE, Consts.POSITION);
+        addActor(board);
     }
 
     private void update()
     {
         gameBG.draw(game.batch);
+        board.draw(game.batch);
     }
 
     @Override
@@ -70,5 +79,6 @@ public class GameScreen extends ParentScreen
         game.batch.dispose();
         fps.dispose();
         gameBG.dispose();
+        board.dispose();
     }
 }

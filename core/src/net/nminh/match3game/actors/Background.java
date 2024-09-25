@@ -35,7 +35,7 @@ public class Background extends Actor implements Disposable
         this.size = size;
         this.position = position;
 
-        board = new List[row][col];
+        board = new ArrayList[row][col];
 
         block1 = Assets.getRegion(Consts.BLOCK_1);
         block2 = Assets.getRegion(Consts.BLOCK_2);
