@@ -31,10 +31,10 @@ public class Candy extends Image implements Disposable
     private void init()
     {
         candy1 = new TextureRegion(Assets.getRegion(Consts.COLOR1));
-        candy2 = new TextureRegion(Assets.getRegion(Consts.COLOR1));
-        candy3 = new TextureRegion(Assets.getRegion(Consts.COLOR1));
-        candy4 = new TextureRegion(Assets.getRegion(Consts.COLOR1));
-        candy5 = new TextureRegion(Assets.getRegion(Consts.COLOR1));
+        candy2 = new TextureRegion(Assets.getRegion(Consts.COLOR2));
+        candy3 = new TextureRegion(Assets.getRegion(Consts.COLOR3));
+        candy4 = new TextureRegion(Assets.getRegion(Consts.COLOR4));
+        candy5 = new TextureRegion(Assets.getRegion(Consts.COLOR5));
     }
 
     private void initHashMap()
