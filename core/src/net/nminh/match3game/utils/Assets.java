@@ -9,9 +9,9 @@ import java.util.HashMap;
 
 public class Assets
 {
-    private static HashMap<String, TextureRegion> texturesMap = new HashMap<>();
-    private static HashMap<String, Animation> animationsMap = new HashMap<>();
-    private static TextureAtlas atlas;
+    static HashMap<String, TextureRegion> texturesMap = new HashMap<>();
+    static HashMap<String, Animation> animationsMap = new HashMap<>();
+    static TextureAtlas atlas;
 
     public Assets() {}
 
