@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Disposable;
 
 import net.nminh.match3game.Match3Game;
@@ -24,15 +25,15 @@ public class Board extends Actor implements Disposable
     Random random = new Random();
     List<Image>[][] candyImage;
 
-    public Board(int row, int col, int size, Vector2 position)
+    public Board(Match3Game game, int row, int col, int size, Vector2 position)
     {
+        this.game = game;
         this.row = row;
         this.col = col;
         this.size = size;
         this.position = position;
 
-        game = new Match3Game();
-        block = new Candy();
+        block = new Candy(game);
 
         candyImage = new ArrayList[row][col];
 
@@ -53,27 +54,27 @@ public class Board extends Actor implements Disposable
                 switch(rnumber)
                 {
                     case 0:
-                        image = new Image(block.getCandyImage(1));
+                        image = new Image(new TextureRegionDrawable(block.getCandyImage(1)));
                         image.setSize(size, size);
                         image.setPosition(x, y);
                         break;
                     case 1:
-                        image = new Image(block.getCandyImage(2));
+                        image = new Image(new TextureRegionDrawable(block.getCandyImage(2)));
                         image.setSize(size, size);
                         image.setPosition(x, y);
                         break;
                     case 2:
-                        image = new Image(block.getCandyImage(3));
+                        image = new Image(new TextureRegionDrawable(block.getCandyImage(3)));
                         image.setSize(size, size);
                         image.setPosition(x, y);
                         break;
                     case 3:
-                        image = new Image(block.getCandyImage(4));
+                        image = new Image(new TextureRegionDrawable(block.getCandyImage(4)));
                         image.setSize(size, size);
                         image.setPosition(x, y);
                         break;
                     case 4:
-                        image = new Image(block.getCandyImage(5));
+                        image = new Image(new TextureRegionDrawable(block.getCandyImage(5)));
                         image.setSize(size, size);
                         image.setPosition(x, y);
                         break;
@@ -85,18 +86,16 @@ public class Board extends Actor implements Disposable
 
     public void draw(SpriteBatch batch)
     {
-        batch.begin();
         for(int i = 0; i < row; i++)
         {
             for(int j = 0; j < col; j++)
             {
                 for(Image image : candyImage[i][j])
                 {
-                    image.draw(batch, 0);
+                    image.draw(batch, 1);
                 }
             }
         }
-        batch.end();
     }
 
     @Override

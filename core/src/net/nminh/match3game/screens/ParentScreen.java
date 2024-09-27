@@ -17,17 +17,17 @@ public abstract class ParentScreen extends Stage implements Screen
     Match3Game game;
     OrthographicCamera cam;
 
-    public ParentScreen()
+    public ParentScreen(Match3Game game)
     {
-        game = new Match3Game();
-        game.batch = new SpriteBatch();
-        cam = new OrthographicCamera();
+        this.game = game;
     }
 
     @Override
     public void show()
     {
-
+        cam = new OrthographicCamera();
+        cam.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        cam.update();
     }
 
     @Override
@@ -36,9 +36,12 @@ public abstract class ParentScreen extends Stage implements Screen
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.gl.glClearColor(0,0,0,1);
         act(delta);
-        draw();
         game.batch.setProjectionMatrix(cam.combined);
         cam.update();
+
+        game.batch.begin();
+        draw();
+        game.batch.end();
 
         if(input.isKeyPressed(Input.Keys.SPACE) || input.isKeyPressed(Input.Keys.ESCAPE))
             Gdx.app.exit();
@@ -67,6 +70,7 @@ public abstract class ParentScreen extends Stage implements Screen
     @Override
     public void dispose()
     {
+        super.dispose();
         game.batch.dispose();
     }
 }

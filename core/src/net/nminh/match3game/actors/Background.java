@@ -68,7 +68,6 @@ public class Background extends Actor implements Disposable
 
     public void draw(SpriteBatch batch)
     {
-        batch.begin();
         sprite.draw(batch);
         for(int i = 0; i < row; i++)
         {
@@ -80,7 +79,6 @@ public class Background extends Actor implements Disposable
                 }
             }
         }
-        batch.end();
     }
 
     @Override

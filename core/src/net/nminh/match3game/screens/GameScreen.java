@@ -1,9 +1,8 @@
 package net.nminh.match3game.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import net.nminh.match3game.Match3Game;
 import net.nminh.match3game.actors.Background;
@@ -14,15 +13,14 @@ import net.nminh.match3game.utils.Consts;
 public class GameScreen extends ParentScreen
 {
     Match3Game game;
-    OrthographicCamera cam;
     FramesPerSecond fps;
     Background gameBG;
     Board board;
 
-    public GameScreen()
+    public GameScreen(Match3Game game)
     {
-        game = new Match3Game();
-        cam = new OrthographicCamera();
+        super(game);
+        this.game = game;
 
         Gdx.input.setInputProcessor(this);
     }
@@ -31,10 +29,16 @@ public class GameScreen extends ParentScreen
     public void show()
     {
         super.show();
-        game.batch = new SpriteBatch();
+
+        setUpViewPort();
         setUpFPS();
         setUpBG();
         setUpBoard();
+    }
+
+    public void setUpViewPort()
+    {
+        setViewport(new ScreenViewport());
     }
 
     private void setUpFPS()
@@ -54,14 +58,16 @@ public class GameScreen extends ParentScreen
 
     private void setUpBoard()
     {
-        board = new Board(Consts.ROW, Consts.COL, Consts.SIZE, Consts.POSITION);
+        board = new Board(game, Consts.ROW, Consts.COL, Consts.SIZE, Consts.POSITION);
         addActor(board);
     }
 
     private void update()
     {
+        game.batch.begin();
         gameBG.draw(game.batch);
         board.draw(game.batch);
+        game.batch.end();
     }
 
     @Override

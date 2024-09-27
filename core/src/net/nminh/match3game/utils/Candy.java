@@ -1,6 +1,5 @@
 package net.nminh.match3game.utils;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.utils.Disposable;
@@ -19,10 +18,9 @@ public class Candy extends Image implements Disposable
             candy4,
             candy5;
 
-    public Candy()
+    public Candy(Match3Game game)
     {
-        game = new Match3Game();
-        game.batch = new SpriteBatch();
+        this.game = game;
 
         init();
         initHashMap();

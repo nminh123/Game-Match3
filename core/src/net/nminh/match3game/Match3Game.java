@@ -16,7 +16,7 @@ public class Match3Game extends Game {
 	public void create()
 	{
 		Assets.Load();
-		setScreen(new HomeScreen());
+		setScreen(new HomeScreen(this));
 		batch = new SpriteBatch();
 	}
 

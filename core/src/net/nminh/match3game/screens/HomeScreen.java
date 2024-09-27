@@ -32,10 +32,10 @@ public class HomeScreen extends ParentScreen
             Logo_Purple_Donut,
             Logo_Green_Donut;
 
-    public HomeScreen()
+    public HomeScreen(Match3Game game)
     {
-        game = new Match3Game();
-        game.batch = new SpriteBatch();
+        super(game);
+        this.game = game;
         cam = new OrthographicCamera(Consts.VIEWPORT_WIDTH, Consts.VIEWPORT_HEIGHT);
         Gdx.input.setInputProcessor(this);
 
@@ -100,7 +100,7 @@ public class HomeScreen extends ParentScreen
             public void clicked(InputEvent event, float x, float y)
             {
                 System.out.println("Go to next screen!!");
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen());
+                ((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen(game));
             }
         });
 
