@@ -4,6 +4,8 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.InputListener;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 import com.badlogic.gdx.utils.Disposable;
@@ -57,31 +59,38 @@ public class Board extends Actor implements InputProcessor,Disposable
                 {
                     case 0:
                         image = new Image(new TextureRegionDrawable(block.getCandyImage(1)));
-                        image.setSize(size, size);
-                        image.setPosition(x, y);
                         break;
                     case 1:
                         image = new Image(new TextureRegionDrawable(block.getCandyImage(2)));
-                        image.setSize(size, size);
-                        image.setPosition(x, y);
                         break;
                     case 2:
                         image = new Image(new TextureRegionDrawable(block.getCandyImage(3)));
-                        image.setSize(size, size);
-                        image.setPosition(x, y);
                         break;
                     case 3:
                         image = new Image(new TextureRegionDrawable(block.getCandyImage(4)));
-                        image.setSize(size, size);
-                        image.setPosition(x, y);
                         break;
                     case 4:
                         image = new Image(new TextureRegionDrawable(block.getCandyImage(5)));
-                        image.setSize(size, size);
-                        image.setPosition(x, y);
                         break;
                 }
                 candyImage[i][j].add(image);
+                image.setSize(size, size);
+                image.setPosition(x, y);
+                image.addListener(new InputListener() {
+                    @Override
+                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+                    {
+                        System.out.println("Board.touchDown");
+                        return super.touchDown(event, x, y, pointer, button);
+                    }
+
+                    @Override
+                    public void touchUp(InputEvent event, float x, float y, int pointer, int button)
+                    {
+                        System.out.println("Board.touchUp");
+                        super.touchUp(event, x, y, pointer, button);
+                    }
+                });
             }
         }
     }
