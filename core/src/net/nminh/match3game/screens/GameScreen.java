@@ -66,7 +66,7 @@ public class GameScreen extends ParentScreen
     {
         game.batch.begin();
         gameBG.draw(game.batch);
-        board.draw(game.batch);
+        board.draw(game.batch, 1);
         game.batch.end();
     }
 

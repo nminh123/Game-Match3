@@ -1,5 +1,6 @@
 package net.nminh.match3game.actors;
 
+import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -14,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-public class Board extends Actor implements Disposable
+public class Board extends Actor implements InputProcessor,Disposable
 {
     Match3Game game;
     Candy block;
@@ -24,6 +25,7 @@ public class Board extends Actor implements Disposable
     Image image;
     Random random = new Random();
     List<Image>[][] candyImage;
+
 
     public Board(Match3Game game, int row, int col, int size, Vector2 position)
     {
@@ -84,7 +86,7 @@ public class Board extends Actor implements Disposable
         }
     }
 
-    public void draw(SpriteBatch batch)
+    public void draw(SpriteBatch batch, float parentAlpha)
     {
         for(int i = 0; i < row; i++)
         {
@@ -92,10 +94,64 @@ public class Board extends Actor implements Disposable
             {
                 for(Image image : candyImage[i][j])
                 {
-                    image.draw(batch, 1);
+                    image.draw(batch, parentAlpha);
                 }
             }
         }
+    }
+
+    @Override
+    public boolean touchDragged(int screenX, int screenY, int pointer)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean touchUp(int screenX, int screenY, int pointer, int button)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean keyDown(int keycode)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean keyUp(int keycode)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean keyTyped(char character)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean touchCancelled(int screenX, int screenY, int pointer, int button)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY)
+    {
+        return false;
+    }
+
+    @Override
+    public boolean scrolled(float amountX, float amountY)
+    {
+        return false;
     }
 
     @Override
