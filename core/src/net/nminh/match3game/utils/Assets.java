@@ -45,11 +45,13 @@ public class Assets
         texturesMap.put(Consts.COLOR3, new TextureRegion(new Texture(Utils.getInternalPath(Consts.COLOR3))));
         texturesMap.put(Consts.COLOR4, new TextureRegion(new Texture(Utils.getInternalPath(Consts.COLOR4))));
         texturesMap.put(Consts.COLOR5, new TextureRegion(new Texture(Utils.getInternalPath(Consts.COLOR5))));
+
+        atlas = new TextureAtlas(Utils.getInternalPath(Consts.TEXTURES_ATLAS));
     }
 
     public static TextureRegion getRegion(String key) {return texturesMap.get(key);}
 
-    public static TextureAtlas getAtlas() {return atlas;}
+    public static TextureAtlas getTexture() {return atlas;}
 
     public static void dispose()
     {

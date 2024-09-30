@@ -12,6 +12,8 @@ public class Consts
     public static final int SIZE = 45;
     public static final Vector2 POSITION = new Vector2(0, 85);
 
+    public static final String TEXTURES_ATLAS = "Textures.atlas";
+
     public static final String VIDEO_URL = "https://www.youtube.com/watch?v=TdrL3QxjyVw";
     public static final String Video_Url = "https://www.youtube.com/watch?v=I0QCbkUao7E";
 
