@@ -1,136 +1,153 @@
 package net.nminh.match3game.actors;
 
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
+import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
+
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.InputListener;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
+import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 
 import net.nminh.match3game.Match3Game;
-import net.nminh.match3game.utils.Candy;
+import net.nminh.match3game.utils.Tile;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
-public class Board extends Actor implements Disposable
+public class Board extends Group implements Disposable
 {
     Match3Game game;
-    Candy block;
-    int row, col, size, rnumber;
-    float x, y;
-    Vector2 position;
-    Image image;
-    Random random = new Random();
-    List<Image>[][] candyImage;
-
-    public Board(Match3Game game, int row, int col, int size, Vector2 position)
+    Array<TextureAtlas.AtlasRegion> entities;
+    Tile[][] tiles = new  Tile[8][8];
+    
+    public Board(Match3Game game, Array<TextureAtlas.AtlasRegion> sprites)
     {
         this.game = game;
-        this.row = row;
-        this.col = col;
-        this.size = size;
-        this.position = position;
+        this.entities = sprites;
 
-        block = new Candy(game);
-
-        candyImage = new ArrayList[row][col];
-
-        init();
+        initialize();
+        this.debugAll();
     }
-
-    private void init()
+    
+    public void initialize()
     {
-        for(int i = 0; i < row; i++)
+        setBounds(0,0,640,640);
+        for (int i = 0; i < tiles.length; i++)
         {
-            for(int j = 0; j < col; j++)
+            for (int j = 0; j < tiles[i].length; j++)
             {
-                candyImage[i][j] = new ArrayList<>();
+                Tile tile = new Tile(i ,j);
+                tile.addListener(clickListener);
+                int num = MathUtils.random(0,4);
+                tile.init(this.entities.get(num),num);
+                tile.setPosition(j * tile.getWidth(), i * tile.getHeight());
+                tiles[i][j] = tile;
+                this.addActor(tile);
+            }
+        }
+    }
+    
+    ClickListener clickListener = new ClickListener()
+    {
+        Tile firstClick;
+        int count = 0;
 
-                x = position.x + j * size;
-                y = position.y + i * size;
-                rnumber = random.nextInt(5);
-                switch(rnumber)
+        @Override
+        public void clicked(InputEvent event, float x, float y)
+        {
+            Tile target = (Tile) event.getTarget();
+
+            if (firstClick != null)
+            {
+                target.clearActions();
+                firstClick.clearActions();
+
+                if (target.row == firstClick.row)
                 {
-                    case 0:
-                        image = new Image(new TextureRegionDrawable(block.getCandyImage(1)));
-                        break;
-                    case 1:
-                        image = new Image(new TextureRegionDrawable(block.getCandyImage(2)));
-                        break;
-                    case 2:
-                        image = new Image(new TextureRegionDrawable(block.getCandyImage(3)));
-                        break;
-                    case 3:
-                        image = new Image(new TextureRegionDrawable(block.getCandyImage(4)));
-                        break;
-                    case 4:
-                        image = new Image(new TextureRegionDrawable(block.getCandyImage(5)));
-                        break;
-                }
-                candyImage[i][j].add(image);
-                image.setSize(size, size);
-                image.setPosition(x, y);
-                image.addListener(new InputListener() {
-                    @Override
-                    public boolean touchDown(InputEvent event, float x, float y, int pointer, int button)
+                    if (target.col == firstClick.col + 1 || target.col == firstClick.col - 1)
                     {
-                        System.out.println("Board.touchDown");
-                        return super.touchDown(event, x, y, pointer, button);
-                    }
 
-                    @Override
-                    public void touchUp(InputEvent event, float x, float y, int pointer, int button)
+                        System.out.println("swap row target <> firstclick");
+                        int row = target.row;
+                        int col = target.col;
+                        tiles[target.col][target.row] = firstClick;
+                        tiles[firstClick.col][firstClick.row] = target;
+                        target.setRowCol(firstClick.row, firstClick.col);
+                        firstClick.setRowCol(row, col);
+                        firstClick.addAction(Actions.moveTo(firstClick.row * firstClick.getWidth(), firstClick.col * firstClick.getHeight(), 2));
+                        target.addAction(Actions.moveTo(target.row * target.getWidth(), target.col * target.getHeight(), 2));
+                    }
+                }
+                else if (target.col == firstClick.col)
+                {
+                    if (target.row == firstClick.row + 1 || target.row == firstClick.row - 1)
                     {
-                        System.out.println("Board.touchUp");
-                        super.touchUp(event, x, y, pointer, button);
+                        System.out.println("swap col target <> firstclick");
+                        int row = target.row;
+                        int col = target.col;
+                        tiles[target.col][target.row] = firstClick;
+                        tiles[firstClick.col][firstClick.row] = target;
+                        target.setRowCol(firstClick.row, firstClick.col);
+                        firstClick.setRowCol(row, col);
+                        firstClick.addAction(Actions.moveTo(firstClick.row * firstClick.getWidth(), firstClick.col * firstClick.getHeight(), 2));
+                        target.addAction(Actions.moveTo(target.row * target.getWidth(), target.col * target.getHeight(), 2));
                     }
-                });
-            }
-        }
-    }
-
-    public boolean CheckMatches()
-    {
-        boolean isMatched = false;
-        for(int i = 0; i < row; i++)
-        {
-            for(int j = 0; j < col; j++)
-            {
-                if(candyImage[i][j] == candyImage[i+1][j] && candyImage[i][j] == candyImage[i+2][j] ||
-                candyImage[i][j] == candyImage[i][j+1] && candyImage[i][j] == candyImage[i][j+2])
-                {
-                    isMatched = true;
                 }
             }
-        }
-        return isMatched;
-    }
 
-    public void RemoveMatchedCandy(int row, int col)
-    {
-        for(int i = 0; i < row; i++)
-        {
-            for(int j = 0; j < col; j++)
+            count++;
+            firstClick = target;
+
+            if (count == 2)
             {
-                candyImage[i][j].clear();
+                firstClick = null;
+                count = 0;
+            }
+            else
+            {
+                for (Tile[] tile : tiles)
+                {
+                    for (Tile t : tile)
+                    {
+                        t.setTouchable(Touchable.disabled);
+                    }
+                }
+                target.setOrigin(Align.center);
+                target.addAction(sequence(parallel(moveTo(target.getX(), target.getY() + 10, 0.125f, Interpolation.swingOut),
+                                Actions.scaleBy(0.2f, 0.2f, 0.125f)),
+                        parallel(Actions.scaleBy(-0.2f, -0.2f, 0.125f),
+                                moveTo(target.getX(), target.getY(), 0.125f, Interpolation.swingIn)), afterClick));
             }
         }
-    }
 
-    public void draw(SpriteBatch batch, float parentAlpha)
-    {
-        for(int i = 0; i < row; i++)
-        {
-            for(int j = 0; j < col; j++)
-            {
-                for(Image image : candyImage[i][j])
-                {
-                    image.draw(batch, parentAlpha);
+        final Action afterClick = new Action() {
+            @Override
+            public boolean act(float delta) {
+                for (Tile[] tile : tiles) {
+                    for (Tile t : tile) {
+                        t.setTouchable(Touchable.enabled);
+                    }
                 }
+                return true;
+            }
+        };
+    };
+
+    @Override
+    public void draw(Batch batch, float parentAlpha)
+    {
+        for (int i = 0; i < tiles.length; i++)
+        {
+            for (int j = 0; j < tiles[i].length; j++)
+            {
+                tiles[i][j].draw(batch, parentAlpha);
             }
         }
     }
@@ -138,11 +155,11 @@ public class Board extends Actor implements Disposable
     @Override
     public void dispose()
     {
-        for(int i = 0; i < row; i++)
+        for (int i = 0; i < tiles.length; i++)
         {
-            for(int j = 0; j < col; j++)
+            for (int j = 0; j < tiles[i].length; j++)
             {
-                candyImage[i][j].clear();
+                tiles[i][j].clear();
             }
         }
     }

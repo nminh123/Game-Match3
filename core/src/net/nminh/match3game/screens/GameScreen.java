@@ -3,6 +3,7 @@ package net.nminh.match3game.screens;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import net.nminh.match3game.Field;
@@ -18,8 +19,8 @@ public class GameScreen extends ParentScreen
     Match3Game game;
     FramesPerSecond fps;
     Background gameBG;
-//    Board board;
-    Field field;
+    Board board;
+//    Field field;
 
 
     public GameScreen(Match3Game game)
@@ -38,8 +39,8 @@ public class GameScreen extends ParentScreen
         setUpViewPort();
         setUpFPS();
         setUpBG();
-//        setUpBoard();
-        setUpField();
+        setUpBoard();
+//        setUpField();
     }
 
     public void setUpViewPort()
@@ -62,23 +63,27 @@ public class GameScreen extends ParentScreen
         addActor(gameBG);
     }
 
-//    private void setUpBoard()
+    private void setUpBoard()
+    {
+        board = new Board(game, Assets.getTexture().findRegions("color"));
+        board.setPosition(getWidth()/2, getHeight(), Align.center);
+        addActor(board);
+    }
+
+//    private void setUpField()
 //    {
-//        board = new Board(game, Consts.ROW, Consts.COL, Consts.SIZE, Consts.POSITION);
-//        addActor(board);
+////        Table maintable = new Table();
+//        field = new Field(game, Assets.getTexture().findRegions("color"));
+////        maintable.add(field);
+//        field.setPosition(getWidth()/2, getHeight()/2, Align.center);
+//        addActor(field);
 //    }
 
-    private void setUpField()
-    {
-        Table maintable = new Table();
-        field = new Field(game, Assets.getTexture().findRegions("color"));
-        maintable.add(field);
-    }
     private void update()
     {
         game.batch.begin();
         gameBG.draw(game.batch);
-//        board.draw(game.batch, 1);
+        board.draw(game.batch, 1);
         game.batch.end();
     }
 
