@@ -27,7 +27,6 @@ public class Board extends Actor implements Disposable
     Random random = new Random();
     List<Image>[][] candyImage;
 
-
     public Board(Match3Game game, int row, int col, int size, Vector2 position)
     {
         this.game = game;
@@ -90,6 +89,34 @@ public class Board extends Actor implements Disposable
                         super.touchUp(event, x, y, pointer, button);
                     }
                 });
+            }
+        }
+    }
+
+    public boolean CheckMatches()
+    {
+        boolean isMatched = false;
+        for(int i = 0; i < row; i++)
+        {
+            for(int j = 0; j < col; j++)
+            {
+                if(candyImage[i][j] == candyImage[i+1][j] && candyImage[i][j] == candyImage[i+2][j] ||
+                candyImage[i][j] == candyImage[i][j+1] && candyImage[i][j] == candyImage[i][j+2])
+                {
+                    isMatched = true;
+                }
+            }
+        }
+        return isMatched;
+    }
+
+    public void RemoveMatchedCandy(int row, int col)
+    {
+        for(int i = 0; i < row; i++)
+        {
+            for(int j = 0; j < col; j++)
+            {
+                candyImage[i][j].clear();
             }
         }
     }
