@@ -32,7 +32,7 @@ public class Grid extends Group implements Disposable
             for (int j = 0; j < grids[i].length; j++)
             {
                 Tile grid = new Tile(i,j);
-                int rnum = MathUtils.random(0,1);
+                int rnum = (i + j) % 2 == 0 ? 1 : 0;
                 grid.init(this.textures.get(rnum), rnum);
                 grid.setPosition(j * grid.getWidth(),
                         i * grid.getHeight());
@@ -52,6 +52,7 @@ public class Grid extends Group implements Disposable
             {
                 if(g != null)
                 {
+                    //
                     g.draw(batch, parentAlpha);
                     Gdx.app.log("Board Texture", "Grid's Texture found!!");
                 }
