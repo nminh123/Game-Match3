@@ -50,5 +50,6 @@ public class Background extends Actor implements Disposable
     public void dispose()
     {
         texture.getTexture().dispose();
+        image.clear();
     }
 }
