@@ -13,6 +13,7 @@ public class DesktopLauncher {
 		config.setForegroundFPS(60);
 		config.setWindowedMode((int)Consts.VIEWPORT_WIDTH, (int)Consts.VIEWPORT_HEIGHT);
 		config.setWindowIcon(Files.FileType.Internal, "icon.png");
+		config.setResizable(false);
 		config.setTitle("Match 3 Game");
 		new Lwjgl3Application(new Match3Game(), config);
 	}

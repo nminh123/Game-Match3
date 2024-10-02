@@ -1,27 +1,21 @@
 package net.nminh.match3game.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Rectangle;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
-import net.nminh.match3game.Field;
 import net.nminh.match3game.Match3Game;
 import net.nminh.match3game.actors.Background;
+import net.nminh.match3game.actors.Grid;
 import net.nminh.match3game.actors.Board;
-import net.nminh.match3game.actors.FramesPerSecond;
 import net.nminh.match3game.utils.Assets;
-import net.nminh.match3game.utils.Consts;
 
 public class GameScreen extends ParentScreen
 {
     Match3Game game;
-    FramesPerSecond fps;
-    Background gameBG;
+    Background bg;
     Board board;
-//    Field field;
-
+    Grid grid;
 
     public GameScreen(Match3Game game)
     {
@@ -37,10 +31,9 @@ public class GameScreen extends ParentScreen
         super.show();
 
         setUpViewPort();
-        setUpFPS();
-        setUpBG();
+        setUpGrid();
         setUpBoard();
-//        setUpField();
+        setUpBG();
     }
 
     public void setUpViewPort()
@@ -48,42 +41,34 @@ public class GameScreen extends ParentScreen
         setViewport(new ScreenViewport());
     }
 
-    private void setUpFPS()
+    private void setUpGrid()
     {
-        Rectangle fpsBounds = new Rectangle(getCamera().viewportWidth * -320 / -64,
-                getCamera().viewportHeight * 1.04f, getCamera().viewportWidth,
-                getCamera().viewportHeight);
-        fps = new FramesPerSecond(fpsBounds);
-        addActor(fps);
+        grid = new Grid(game, Assets.getTexture().findRegions("block"));
+        grid.setPosition(getWidth()/2, getHeight(), Align.center);
+        grid.debug();
+        this.addActor(grid);
     }
 
     private void setUpBG()
     {
-        gameBG = new Background(Consts.ROW, Consts.COL, Consts.SIZE, Consts.POSITION);
-        addActor(gameBG);
+        bg = new Background(game);
+        addActor(bg);
     }
 
     private void setUpBoard()
     {
         board = new Board(game, Assets.getTexture().findRegions("color"));
         board.setPosition(getWidth()/2, getHeight(), Align.center);
-        addActor(board);
+//        board.debugAll();
+        this.addActor(board);
     }
-
-//    private void setUpField()
-//    {
-////        Table maintable = new Table();
-//        field = new Field(game, Assets.getTexture().findRegions("color"));
-////        maintable.add(field);
-//        field.setPosition(getWidth()/2, getHeight()/2, Align.center);
-//        addActor(field);
-//    }
 
     private void update()
     {
         game.batch.begin();
-        gameBG.draw(game.batch);
+        grid.draw(game.batch, 1);
         board.draw(game.batch, 1);
+        bg.draw(game.batch, 1);
         game.batch.end();
     }
 
@@ -96,12 +81,16 @@ public class GameScreen extends ParentScreen
     }
 
     @Override
+    public void resize(int width, int height)
+    {
+        getViewport().update(width, height, true);
+    }
+
+    @Override
     public void dispose()
     {
         super.dispose();
-        game.batch.dispose();
-        fps.dispose();
-        gameBG.dispose();
-//        board.dispose();
+        grid.dispose();
+        board.dispose();
     }
 }

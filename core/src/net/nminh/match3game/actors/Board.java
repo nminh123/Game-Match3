@@ -4,19 +4,20 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.moveTo;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
-import com.badlogic.gdx.math.Interpolation;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.Action;
-import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Interpolation;
+import com.badlogic.gdx.scenes.scene2d.Group;
+import com.badlogic.gdx.scenes.scene2d.Action;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import net.nminh.match3game.Match3Game;
 import net.nminh.match3game.utils.Tile;
@@ -25,7 +26,7 @@ public class Board extends Group implements Disposable
 {
     Match3Game game;
     Array<TextureAtlas.AtlasRegion> entities;
-    Tile[][] tiles = new  Tile[8][8];
+    Tile[][] tiles = new Tile[8][8];
     
     public Board(Match3Game game, Array<TextureAtlas.AtlasRegion> sprites)
     {
@@ -33,10 +34,9 @@ public class Board extends Group implements Disposable
         this.entities = sprites;
 
         initialize();
-        this.debugAll();
     }
     
-    public void initialize()
+    private void initialize()
     {
         setBounds(0,0,640,640);
         for (int i = 0; i < tiles.length; i++)
@@ -143,13 +143,22 @@ public class Board extends Group implements Disposable
     @Override
     public void draw(Batch batch, float parentAlpha)
     {
-        for (int i = 0; i < tiles.length; i++)
+        super.draw(batch, parentAlpha);
+        for(Tile tile[] : tiles)
         {
-            for (int j = 0; j < tiles[i].length; j++)
+            for(Tile t : tile)
             {
-                tiles[i][j].draw(batch, parentAlpha);
+                if(t != null)
+                {
+                    //tiles have problems.
+                    t.draw(batch, parentAlpha);
+                    Gdx.app.log("Block Textures", "Block textures found");
+                }
+                else
+                    Gdx.app.log("Block Textures", "Block textures not found");
             }
         }
+//      System.out.println("Board.draw");
     }
 
     @Override

@@ -2,12 +2,9 @@ package net.nminh.match3game;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 
 import net.nminh.match3game.screens.HomeScreen;
 import net.nminh.match3game.utils.Assets;
-import net.nminh.match3game.utils.Consts;
-import net.nminh.match3game.utils.Utils;
 
 public class Match3Game extends Game {
 	public SpriteBatch batch;
@@ -34,5 +31,6 @@ public class Match3Game extends Game {
 	{
 		super.dispose();
 		Assets.dispose();
+		batch.dispose();
 	}
 }
