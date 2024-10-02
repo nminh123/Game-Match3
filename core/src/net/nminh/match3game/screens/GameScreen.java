@@ -5,10 +5,10 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import net.nminh.match3game.Match3Game;
-import net.nminh.match3game.actors.Background;
 import net.nminh.match3game.actors.Grid;
 import net.nminh.match3game.actors.Board;
 import net.nminh.match3game.utils.Assets;
+import net.nminh.match3game.actors.Background;
 
 public class GameScreen extends ParentScreen
 {
@@ -92,5 +92,6 @@ public class GameScreen extends ParentScreen
         super.dispose();
         grid.dispose();
         board.dispose();
+        bg.dispose();
     }
 }
