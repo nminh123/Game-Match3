@@ -36,7 +36,7 @@ public class GameScreen extends ParentScreen
         setUpBG();
     }
 
-    public void setUpViewPort()
+    private void setUpViewPort()
     {
         setViewport(new ScreenViewport());
     }
