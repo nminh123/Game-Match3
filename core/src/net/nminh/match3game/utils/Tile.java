@@ -17,8 +17,10 @@ public class Tile extends Image
 
     public void init(TextureRegion sprite, int index)
     {
+        setSize(getWidth(), getHeight());
         setBounds(getX(), getY(), getWidth(), getHeight());
         setDrawable(new TextureRegionDrawable(sprite));
+        debug();
         this.type = index;
     }
 
