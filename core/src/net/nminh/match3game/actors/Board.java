@@ -29,7 +29,6 @@ public class Board extends Group implements Disposable
     
     public Board(Match3Game game, Array<TextureAtlas.AtlasRegion> sprites)
     {
-        debugAll();
         this.game = game;
         this.entities = sprites;
 

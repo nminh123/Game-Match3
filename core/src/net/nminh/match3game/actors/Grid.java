@@ -31,8 +31,9 @@ public class Grid extends Group implements Disposable
                 TextureRegion region = (i + j) % 2 == 0 ? block1 : block2;
                 Image image = new Image(region);
 
-                grid[i][j] = image;
+                image.setPosition(j * image.getWidth(), i * image.getHeight());
                 image.setSize(getWidth(), getHeight());
+                grid[i][j] = image;
 
                 this.addActor(grid[i][j]);
             }
