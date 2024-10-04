@@ -37,6 +37,7 @@ public class GameScreen extends ParentScreen
 
     private void setUpGrid()
     {
+        //todo
         grid = new Grid(game, Assets.getRegion(Consts.BLOCK_1), Assets.getRegion(Consts.BLOCK_2));
         grid.setPosition(getWidth()/2, getHeight(), Align.center);
         grid.debugAll();
@@ -45,6 +46,7 @@ public class GameScreen extends ParentScreen
 
     private void setUpBoard()
     {
+        //todo
         board = new Board(game, Assets.getTexture().findRegions("color"));
         board.setPosition(getWidth()/2, getHeight()/5, Align.center);
         board.debugAll();
