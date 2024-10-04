@@ -3,7 +3,6 @@ package net.nminh.match3game.screens;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -174,8 +173,6 @@ public class HomeScreen extends ParentScreen
         Logo_BG.getTexture().dispose();
         Logo_Purple_Donut.getTexture().dispose();
         Logo_Green_Donut.getTexture().dispose();
-
-        game.batch.dispose();
 
         for(Image image : images)
         {

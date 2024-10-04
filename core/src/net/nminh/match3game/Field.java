@@ -23,6 +23,8 @@ import com.badlogic.gdx.utils.Disposable;
 import net.nminh.match3game.utils.Tile;
 
 public class Field extends Group implements Disposable {
+    //todo: abandon
+
     Match3Game game;
     int size = 8;
     Array<TextureAtlas.AtlasRegion> entities;

@@ -1,63 +1,40 @@
 package net.nminh.match3game.actors;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.Array;
-import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.utils.Disposable;
 
-import net.nminh.match3game.utils.Tile;
 import net.nminh.match3game.Match3Game;
 
 public class Grid extends Group implements Disposable
 {
     Match3Game game;
-    Tile[][] grids = new Tile[8][8];
-    Array<TextureAtlas.AtlasRegion> textures;
+    TextureRegion block1, block2;
+    Image[][] grid = new Image[8][8];
 
-    public Grid(Match3Game game, Array<TextureAtlas.AtlasRegion> textures)
+    public Grid(Match3Game game, TextureRegion block1, TextureRegion block2)
     {
         this.game = game;
-        this.textures = textures;
+        this.block1 = block1;
+        this.block2 = block2;
 
-        initialize();
+        initialize(block1, block2);
     }
 
-    private void initialize()
+    private void initialize(TextureRegion block1, TextureRegion block2)
     {
-        for (int i = 0; i < grids.length; i++)
+        for (int i = 0; i < grid.length; i++)
         {
-            for (int j = 0; j < grids[i].length; j++)
+            for (int j = 0; j < grid[i].length; j++)
             {
-                Tile grid = new Tile(i,j);
-                int rnum = (i + j) % 2 == 0 ? 1 : 0;
-                grid.init(this.textures.get(rnum), rnum);
-                grid.setPosition(j * grid.getWidth(),
-                        i * grid.getHeight());
-                this.grids[i][j] = grid;
-                this.addActor(grid);
-            }
-        }
-    }
+                TextureRegion region = (i + j) % 2 == 0 ? block1 : block2;
+                Image image = new Image(region);
 
-    @Override
-    public void draw(Batch batch, float parentAlpha)
-    {
-        super.draw(batch, parentAlpha);
-        for(Tile grid[] : grids)
-        {
-            for(Tile g : grid)
-            {
-                if(g != null)
-                {
-                    //
-                    g.draw(batch, parentAlpha);
-                    Gdx.app.log("Board Texture", "Grid's Texture found!!");
-                }
-                else
-                    Gdx.app.log("Board Texture", "Grid's Texture not found!!");
+                grid[i][j] = image;
+                image.setSize(getWidth(), getHeight());
+
+                this.addActor(grid[i][j]);
             }
         }
     }
@@ -65,11 +42,14 @@ public class Grid extends Group implements Disposable
     @Override
     public void dispose()
     {
-        for(int i = 0; i < grids.length; i++)
+        block1.getTexture().dispose();
+        block2.getTexture().dispose();
+
+        for (int i = 0; i < grid.length; i++)
         {
-            for(int j = 0; j < grids[i].length; j++)
+            for (int j = 0; j < grid[i].length; j++)
             {
-                grids[i][j].clear();
+                grid[i][j].clear();
             }
         }
     }

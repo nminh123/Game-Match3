@@ -2,19 +2,18 @@ package net.nminh.match3game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.utils.Align;
-import com.badlogic.gdx.utils.viewport.ScreenViewport;
 
 import net.nminh.match3game.Match3Game;
 import net.nminh.match3game.actors.Grid;
-import net.nminh.match3game.actors.Board;
 import net.nminh.match3game.utils.Assets;
+import net.nminh.match3game.actors.Board;
 import net.nminh.match3game.actors.Background;
 
 public class GameScreen extends ParentScreen
 {
     Match3Game game;
     Background bg;
-    Board board;
+//    Board board;
     Grid grid;
 
     public GameScreen(Match3Game game)
@@ -30,24 +29,27 @@ public class GameScreen extends ParentScreen
     {
         super.show();
 
-        setUpViewPort();
         setUpGrid();
-        setUpBoard();
+//        setUpBoard();
         setUpBG();
-    }
-
-    private void setUpViewPort()
-    {
-        setViewport(new ScreenViewport());
     }
 
     private void setUpGrid()
     {
-        grid = new Grid(game, Assets.getTexture().findRegions("block"));
+        grid = new Grid(game, Assets.getTexture().findRegion("block", 1),
+                Assets.getTexture().findRegion("block", 2));
         grid.setPosition(getWidth()/2, getHeight(), Align.center);
-        grid.debug();
+        grid.debugAll();
         this.addActor(grid);
     }
+
+
+//    private void setUpBoard()
+//    {
+//        board = new Board(game, Assets.getTexture().findRegions("color"));
+//        board.setPosition(getWidth()/2, getHeight(), Align.center);
+//        this.addActor(board);
+//    }
 
     private void setUpBG()
     {
@@ -55,29 +57,10 @@ public class GameScreen extends ParentScreen
         addActor(bg);
     }
 
-    private void setUpBoard()
-    {
-        board = new Board(game, Assets.getTexture().findRegions("color"));
-        board.setPosition(getWidth()/2, getHeight(), Align.center);
-//        board.debugAll();
-        this.addActor(board);
-    }
-
-    private void update()
-    {
-        game.batch.begin();
-        grid.draw(game.batch, 1);
-        board.draw(game.batch, 1);
-        bg.draw(game.batch, 1);
-        game.batch.end();
-    }
-
     @Override
     public void render(float delta)
     {
         super.render(delta);
-
-        update();
     }
 
     @Override
@@ -90,8 +73,8 @@ public class GameScreen extends ParentScreen
     public void dispose()
     {
         super.dispose();
-        grid.dispose();
-        board.dispose();
+//        grid.dispose();
+//        board.dispose();
         bg.dispose();
     }
 }

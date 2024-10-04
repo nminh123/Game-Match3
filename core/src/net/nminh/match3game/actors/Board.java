@@ -9,7 +9,6 @@ import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Interpolation;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Action;
@@ -30,6 +29,7 @@ public class Board extends Group implements Disposable
     
     public Board(Match3Game game, Array<TextureAtlas.AtlasRegion> sprites)
     {
+        debugAll();
         this.game = game;
         this.entities = sprites;
 
@@ -50,8 +50,14 @@ public class Board extends Group implements Disposable
                 tile.setPosition(j * tile.getWidth(), i * tile.getHeight());
                 tiles[i][j] = tile;
                 this.addActor(tile);
+
+                if(tiles[i][j] == null)
+                    Gdx.app.log("Board", "Could not found Board Texture");
             }
         }
+
+        if(entities == null)
+            Gdx.app.log("Board", "Could not found atlas");
     }
     
     ClickListener clickListener = new ClickListener()
@@ -139,27 +145,6 @@ public class Board extends Group implements Disposable
             }
         };
     };
-
-    @Override
-    public void draw(Batch batch, float parentAlpha)
-    {
-        super.draw(batch, parentAlpha);
-        for(Tile tile[] : tiles)
-        {
-            for(Tile t : tile)
-            {
-                if(t != null)
-                {
-                    //tiles have problems.
-                    t.draw(batch, parentAlpha);
-                    Gdx.app.log("Block Textures", "Block textures found");
-                }
-                else
-                    Gdx.app.log("Block Textures", "Block textures not found");
-            }
-        }
-//      System.out.println("Board.draw");
-    }
 
     @Override
     public void dispose()

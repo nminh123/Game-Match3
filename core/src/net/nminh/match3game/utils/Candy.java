@@ -10,6 +10,7 @@ import java.util.HashMap;
 
 public class Candy extends Image implements Disposable
 {
+    //todo: abandon
     Match3Game game;
     HashMap<Integer, TextureRegion> candyMap = new HashMap<>();
     TextureRegion candy1,
