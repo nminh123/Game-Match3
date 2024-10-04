@@ -1,17 +1,16 @@
 package net.nminh.match3game.actors;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.Disposable;
-import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.nminh.match3game.Match3Game;
 import net.nminh.match3game.utils.Assets;
 import net.nminh.match3game.utils.Consts;
 
-public class Background extends Actor implements Disposable
+public class Background extends Group implements Disposable
 {
     Match3Game game;
     TextureRegion texture;
@@ -21,29 +20,19 @@ public class Background extends Actor implements Disposable
     {
         this.game = game;
 
+        texture = Assets.getRegion(Consts.GAMESCREEN_BG);
+
         init();
     }
 
     private void init()
     {
-        texture = Assets.getRegion(Consts.GAMESCREEN_BG);
-
         image = new Image(texture);
         image.setPosition(0,0);
-        image.setSize(getWidth(), getHeight());
-    }
-
-    @Override
-    public void draw(Batch batch, float parentAlpha)
-    {
-        super.draw(batch, parentAlpha);
-        if(image != null)
-        {
-            image.draw(batch, parentAlpha);
-            Gdx.app.log("Background", "Background texture found!!");
-        }
-        else
-            Gdx.app.log("Background", "Background texture not found!!");
+        image.setSize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        if(image == null)
+            Gdx.app.log("BackGround", "Could not found background!!");
+        this.addActor(image);
     }
 
     @Override
