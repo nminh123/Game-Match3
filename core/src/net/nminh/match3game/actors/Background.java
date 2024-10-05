@@ -7,25 +7,20 @@ import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import net.nminh.match3game.Match3Game;
-import net.nminh.match3game.utils.Assets;
-import net.nminh.match3game.utils.Consts;
 
 public class Background extends Group implements Disposable
 {
     Match3Game game;
-    TextureRegion texture;
     Image image;
 
-    public Background(Match3Game game)
+    public Background(Match3Game game, TextureRegion texture)
     {
         this.game = game;
 
-        texture = Assets.getRegion(Consts.GAMESCREEN_BG);
-
-        init();
+        init(texture);
     }
 
-    private void init()
+    private void init(TextureRegion texture)
     {
         image = new Image(texture);
         image.setPosition(0,0);
@@ -38,7 +33,6 @@ public class Background extends Group implements Disposable
     @Override
     public void dispose()
     {
-        texture.getTexture().dispose();
         image.clear();
     }
 }
