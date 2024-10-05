@@ -37,7 +37,6 @@ public class GameScreen extends ParentScreen
 
     private void setUpGrid()
     {
-        //todo
         grid = new Grid(game, Assets.getRegion(Consts.BLOCK_1));
         grid.setPosition(0,0);
         grid.debugAll();
