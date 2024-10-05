@@ -14,7 +14,7 @@ public class GameScreen extends ParentScreen
 {
     Match3Game game;
     Background bg;
-    Board board;
+//    Board board;
     Grid grid;
 
     public GameScreen(Match3Game game)
@@ -30,32 +30,33 @@ public class GameScreen extends ParentScreen
     {
         super.show();
 
-        setUpGrid();
-        setUpBoard();
+//        setUpBoard();
         setUpBG();
+        setUpGrid();
     }
 
     private void setUpGrid()
     {
         //todo
-        grid = new Grid(game, Assets.getRegion(Consts.BLOCK_1), Assets.getRegion(Consts.BLOCK_2));
-        grid.setPosition(getWidth()/2, getHeight(), Align.center);
+        grid = new Grid(game, Assets.getRegion(Consts.BLOCK_1));
+        grid.setPosition(0,0);
         grid.debugAll();
         this.addActor(grid);
     }
-
-    private void setUpBoard()
-    {
-        //todo
-        board = new Board(game, Assets.getTexture().findRegions("color"));
-        board.setPosition(getWidth()/2, getHeight()/5, Align.center);
-        board.debugAll();
-        this.addActor(board);
-    }
+    
+//    private void setUpBoard()
+//    {
+//        //todo
+//        board = new Board(game, Assets.getTexture().findRegions("color"));
+////        board.setPosition(getWidth()/2, getHeight()/5, Align.center);
+////        board.setPosition(0,0);
+//        board.debugAll();
+//        this.addActor(board);
+//    }
 
     private void setUpBG()
     {
-        bg = new Background(game);
+        bg = new Background(game, Assets.getRegion(Consts.GAMESCREEN_BG));
         bg.debugAll();
         this.addActor(bg);
     }
@@ -77,7 +78,7 @@ public class GameScreen extends ParentScreen
     {
         super.dispose();
         grid.dispose();
-        board.dispose();
+//        board.dispose();
         bg.dispose();
     }
 }

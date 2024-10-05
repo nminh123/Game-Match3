@@ -7,34 +7,27 @@ import com.badlogic.gdx.utils.Disposable;
 
 import net.nminh.match3game.Match3Game;
 
-public class Grid extends Group implements Disposable
-{
+public class Grid extends Group implements Disposable {
     Match3Game game;
-    TextureRegion block1, block2;
     Image[][] grid = new Image[8][8];
 
-    public Grid(Match3Game game, TextureRegion block1, TextureRegion block2)
+    public Grid(Match3Game game, TextureRegion TextureBlock)
     {
         this.game = game;
-        this.block1 = block1;
-        this.block2 = block2;
 
-        initialize(block1, block2);
+        init(TextureBlock);
     }
 
-    private void initialize(TextureRegion block1, TextureRegion block2)
+    private void init(TextureRegion TextureBlock)
     {
         for (int i = 0; i < grid.length; i++)
         {
             for (int j = 0; j < grid[i].length; j++)
             {
-                TextureRegion region = (i + j) % 2 == 0 ? block1 : block2;
-                Image image = new Image(region);
+                Image image = new Image(TextureBlock);
+                image.setSize(image.getImageWidth(), image.getImageHeight());
 
-                image.setPosition(j * image.getWidth(), i * image.getHeight());
-                image.setSize(getWidth(), getHeight());
                 grid[i][j] = image;
-
                 this.addActor(grid[i][j]);
             }
         }
@@ -43,13 +36,8 @@ public class Grid extends Group implements Disposable
     @Override
     public void dispose()
     {
-        block1.getTexture().dispose();
-        block2.getTexture().dispose();
-
-        for (int i = 0; i < grid.length; i++)
-        {
-            for (int j = 0; j < grid[i].length; j++)
-            {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[i].length; j++) {
                 grid[i][j].clear();
             }
         }
