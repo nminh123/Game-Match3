@@ -35,8 +35,6 @@ public class Consts
     public static final String GAMESCREEN_BG = "asset/bg_ingame.png";
     public static final String GAMESCREEN_BACKGROUNDMOVEREMAIN = "asset/progress_1.png";
     public static final String GAMESCREEN_PROCESS = "asset/progress_2.png";
-    public static final String BLOCK_1 = "asset/block_1.png";
-    public static final String BLOCK_2 = "asset/block_2.png";
 
     //Color
     public static final String COLOR1 = "asset/color_1.png";
