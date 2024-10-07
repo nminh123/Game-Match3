@@ -36,8 +36,6 @@ public class Assets
         texturesMap.put(Consts.GAMESCREEN_BG, new TextureRegion(new Texture(Utils.getInternalPath(Consts.GAMESCREEN_BG))));
         texturesMap.put(Consts.GAMESCREEN_BACKGROUNDMOVEREMAIN, new TextureRegion(new Texture(Utils.getInternalPath(Consts.GAMESCREEN_BACKGROUNDMOVEREMAIN))));
         texturesMap.put(Consts.GAMESCREEN_PROCESS, new TextureRegion(new Texture(Utils.getInternalPath(Consts.GAMESCREEN_PROCESS))));
-        texturesMap.put(Consts.BLOCK_1, new TextureRegion(new Texture(Utils.getInternalPath(Consts.BLOCK_1))));
-        texturesMap.put(Consts.BLOCK_2, new TextureRegion(new Texture(Utils.getInternalPath(Consts.BLOCK_2))));
 
         //Candy piece
         texturesMap.put(Consts.COLOR1, new TextureRegion(new Texture(Utils.getInternalPath(Consts.COLOR1))));
