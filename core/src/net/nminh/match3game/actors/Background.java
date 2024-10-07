@@ -10,13 +10,10 @@ import net.nminh.match3game.Match3Game;
 
 public class Background extends Group implements Disposable
 {
-    Match3Game game;
     Image image;
 
-    public Background(Match3Game game, TextureRegion texture)
+    public Background(TextureRegion texture)
     {
-        this.game = game;
-
         init(texture);
     }
 

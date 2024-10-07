@@ -37,13 +37,12 @@ public class GameScreen extends ParentScreen
 
     private void setUpGrid()
     {
-        grid = new Grid(game,
-                Consts.ROW,
-                Consts.COL,
-                Consts.SIZE,
-                Consts.POSITION,
-                Assets.getTexture().findRegion("block",2),
-                Assets.getTexture().findRegion("block", 1));
+        grid = new Grid(Consts.ROW,
+                        Consts.COL,
+                        Consts.SIZE,
+                        Consts.POSITION,
+                        Assets.getTexture().findRegion("block",2),
+                        Assets.getTexture().findRegion("block", 1));
         grid.debugAll();
         this.addActor(grid);
     }
@@ -60,7 +59,7 @@ public class GameScreen extends ParentScreen
 
     private void setUpBG()
     {
-        bg = new Background(game, Assets.getRegion(Consts.GAMESCREEN_BG));
+        bg = new Background(Assets.getRegion(Consts.GAMESCREEN_BG));
         bg.debugAll();
         this.addActor(bg);
     }

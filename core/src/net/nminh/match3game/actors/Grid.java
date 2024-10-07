@@ -9,11 +9,7 @@ import net.nminh.match3game.Match3Game;
 
 public class Grid extends Group
 {
-    Match3Game game;
-
-    public Grid(Match3Game game, int rows, int cols, float size, Vector2 position, TextureRegion block1, TextureRegion block2) {
-        this.game = game;
-
+    public Grid(int rows, int cols, float size, Vector2 position, TextureRegion block1, TextureRegion block2) {
         // Tạo Image và add vào Group
         for (int row = 0; row < rows; row++) {
             for (int col = 0; col < cols; col++) {
