@@ -1,44 +1,30 @@
 package net.nminh.match3game.actors;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
-import com.badlogic.gdx.utils.Disposable;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
 import net.nminh.match3game.Match3Game;
 
-public class Grid extends Group implements Disposable {
+public class Grid extends Group
+{
     Match3Game game;
-    Image[][] grid = new Image[8][8];
 
-    public Grid(Match3Game game, TextureRegion TextureBlock)
-    {
+    public Grid(Match3Game game, int rows, int cols, float size, Vector2 position, TextureRegion block1, TextureRegion block2) {
         this.game = game;
 
-        init(TextureBlock);
-    }
+        // Tạo Image và add vào Group
+        for (int row = 0; row < rows; row++) {
+            for (int col = 0; col < cols; col++) {
+                TextureRegion currentTexture = (row + col) % 2 == 0 ? block1 : block2;
+                Image cell = new Image(new TextureRegion(currentTexture));
+                float x = position.x + col * size;
+                float y = position.y + row * size;
+                cell.setSize(size, size);
+                cell.setPosition(x,y);
 
-    private void init(TextureRegion TextureBlock)
-    {
-        for (int i = 0; i < grid.length; i++)
-        {
-            for (int j = 0; j < grid[i].length; j++)
-            {
-                Image image = new Image(TextureBlock);
-                image.setSize(image.getImageWidth(), image.getImageHeight());
-
-                grid[i][j] = image;
-                this.addActor(grid[i][j]);
-            }
-        }
-    }
-
-    @Override
-    public void dispose()
-    {
-        for (int i = 0; i < grid.length; i++) {
-            for (int j = 0; j < grid[i].length; j++) {
-                grid[i][j].clear();
+                this.addActor(cell);  // Thêm Image vào Group
             }
         }
     }

@@ -37,8 +37,13 @@ public class GameScreen extends ParentScreen
 
     private void setUpGrid()
     {
-        grid = new Grid(game, Assets.getRegion(Consts.BLOCK_1));
-        grid.setPosition(0,0);
+        grid = new Grid(game,
+                Consts.ROW,
+                Consts.COL,
+                Consts.SIZE,
+                Consts.POSITION,
+                Assets.getTexture().findRegion("block",2),
+                Assets.getTexture().findRegion("block", 1));
         grid.debugAll();
         this.addActor(grid);
     }
@@ -76,7 +81,6 @@ public class GameScreen extends ParentScreen
     public void dispose()
     {
         super.dispose();
-        grid.dispose();
 //        board.dispose();
         bg.dispose();
     }
