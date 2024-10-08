@@ -5,9 +5,9 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Disposable;
 import com.badlogic.gdx.math.Interpolation;
@@ -20,6 +20,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import net.nminh.match3game.Match3Game;
+import net.nminh.match3game.utils.Consts;
 import net.nminh.match3game.utils.Tile;
 
 public class Board extends Group implements Disposable
@@ -28,18 +29,11 @@ public class Board extends Group implements Disposable
     Array<TextureAtlas.AtlasRegion> entities;
     Tile[][] tiles = new Tile[8][8];
 
-    int row, col, size;
-    Vector2 position;
-
     public Board(Array<TextureAtlas.AtlasRegion> sprites, int row, int col, int size, Vector2 position)
     {
         this.entities = sprites;
-        this.row = row;
-        this.col = col;
-        this.size = size;
-        this.position = position;
 
-        init();
+        initialize(row, col, size, position);
     }
     
     public Board(Match3Game game, Array<TextureAtlas.AtlasRegion> sprites)
@@ -61,8 +55,9 @@ public class Board extends Group implements Disposable
                 tile.addListener(clickListener);
                 int num = MathUtils.random(1,4);
                 tile.init(this.entities.get(num),num);
-                tile.setPosition(j * tile.getWidth(), i * tile.getHeight());
-                tile.setSize(50,50);
+//                tile.setPosition(j * tile.getWidth(), i * tile.getHeight());
+                tile.setPosition(90, 220, Align.center);
+                tile.setSize(Consts.SIZE,Consts.SIZE);
                 tiles[i][j] = tile;
                 this.addActor(tile);
 
@@ -72,7 +67,7 @@ public class Board extends Group implements Disposable
         }
     }
 
-    private void init()
+    private void initialize(int row, int col, int size, Vector2 position)
     {
         setBounds(0,0,size, size);
         for (int i = 0; i < row; i++) {
