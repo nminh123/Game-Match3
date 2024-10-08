@@ -29,13 +29,6 @@ public class Board extends Group implements Disposable
     Array<TextureAtlas.AtlasRegion> entities;
     Tile[][] tiles = new Tile[8][8];
 
-    public Board(Array<TextureAtlas.AtlasRegion> sprites, int row, int col, int size, Vector2 position)
-    {
-        this.entities = sprites;
-
-        initialize(row, col, size, position);
-    }
-    
     public Board(Match3Game game, Array<TextureAtlas.AtlasRegion> sprites)
     {
         this.game = game;
@@ -43,7 +36,14 @@ public class Board extends Group implements Disposable
 
         initialize();
     }
-    
+
+    public Board(Array<TextureAtlas.AtlasRegion> sprites, int row, int col, int size, Vector2 position)
+    {
+        this.entities = sprites;
+
+        initialize(row, col, size, position);
+    }
+
     private void initialize()
     {
         setBounds(0,0,640,640);
@@ -69,7 +69,7 @@ public class Board extends Group implements Disposable
 
     private void initialize(int row, int col, int size, Vector2 position)
     {
-        setBounds(0,0,size, size);
+        setBounds(0,0,640, 640);
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 Tile tile = new Tile(i, j);
@@ -106,7 +106,6 @@ public class Board extends Group implements Disposable
                 {
                     if (target.col == firstClick.col + 1 || target.col == firstClick.col - 1)
                     {
-
                         System.out.println("swap row target <> firstclick");
                         int row = target.row;
                         int col = target.col;

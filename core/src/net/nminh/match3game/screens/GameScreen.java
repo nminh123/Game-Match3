@@ -48,7 +48,6 @@ public class GameScreen extends ParentScreen
     
     private void setUpBoard()
     {
-        //todo
         board = new Board(game, Assets.getTexture().findRegions("color"));
 //        board = new Board(Assets.getTexture().findRegions("color"), Consts.ROW, Consts.COL, Consts.SIZE, Consts.POSITION);
         board.debugAll();
