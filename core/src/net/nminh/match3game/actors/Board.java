@@ -46,6 +46,7 @@ public class Board extends Group implements Disposable
 
     private void initialize()
     {
+        //todo sua lai cai ham nay
         setBounds(0,0,640,640);
         for (int i = 0; i < tiles.length; i++)
         {
