@@ -5,8 +5,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 
-import net.nminh.match3game.Match3Game;
-
 public class Grid extends Group
 {
     public Grid(int rows, int cols, float size, Vector2 position, TextureRegion block1, TextureRegion block2) {

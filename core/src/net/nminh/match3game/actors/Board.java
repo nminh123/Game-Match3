@@ -44,9 +44,10 @@ public class Board extends Group implements Disposable
             {
                 Tile tile = new Tile(i ,j);
                 tile.addListener(clickListener);
-                int num = MathUtils.random(0,4);
+                int num = MathUtils.random(1,4);
                 tile.init(this.entities.get(num),num);
                 tile.setPosition(j * tile.getWidth(), i * tile.getHeight());
+                tile.setSize(50,50);
                 tiles[i][j] = tile;
                 this.addActor(tile);
 
@@ -54,9 +55,6 @@ public class Board extends Group implements Disposable
                     Gdx.app.log("Board", "Could not found Board Texture");
             }
         }
-
-        if(entities == null)
-            Gdx.app.log("Board", "Could not found atlas");
     }
     
     ClickListener clickListener = new ClickListener()

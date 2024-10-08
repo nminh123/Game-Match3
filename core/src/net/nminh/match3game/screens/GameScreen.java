@@ -1,20 +1,19 @@
 package net.nminh.match3game.screens;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.utils.Align;
 
 import net.nminh.match3game.Match3Game;
+import net.nminh.match3game.actors.Board;
 import net.nminh.match3game.actors.Grid;
 import net.nminh.match3game.utils.Consts;
 import net.nminh.match3game.utils.Assets;
-import net.nminh.match3game.actors.Board;
 import net.nminh.match3game.actors.Background;
 
 public class GameScreen extends ParentScreen
 {
     Match3Game game;
     Background bg;
-//    Board board;
+    Board board;
     Grid grid;
 
     public GameScreen(Match3Game game)
@@ -30,9 +29,9 @@ public class GameScreen extends ParentScreen
     {
         super.show();
 
-//        setUpBoard();
         setUpBG();
         setUpGrid();
+        setUpBoard();
     }
 
     private void setUpGrid()
@@ -41,21 +40,19 @@ public class GameScreen extends ParentScreen
                         Consts.COL,
                         Consts.SIZE,
                         Consts.POSITION,
-                        Assets.getTexture().findRegion("block",2),
-                        Assets.getTexture().findRegion("block", 1));
+                        Assets.getTexture().findRegion("block",1),
+                        Assets.getTexture().findRegion("block", 2));
         grid.debugAll();
         this.addActor(grid);
     }
     
-//    private void setUpBoard()
-//    {
-//        //todo
-//        board = new Board(game, Assets.getTexture().findRegions("color"));
-////        board.setPosition(getWidth()/2, getHeight()/5, Align.center);
-////        board.setPosition(0,0);
-//        board.debugAll();
-//        this.addActor(board);
-//    }
+    private void setUpBoard()
+    {
+        //todo
+        board = new Board(game, Assets.getTexture().findRegions("color"));
+        board.debugAll();
+        this.addActor(board);
+    }
 
     private void setUpBG()
     {
@@ -80,7 +77,7 @@ public class GameScreen extends ParentScreen
     public void dispose()
     {
         super.dispose();
-//        board.dispose();
+        board.dispose();
         bg.dispose();
     }
 }
