@@ -5,6 +5,7 @@ import static com.badlogic.gdx.scenes.scene2d.actions.Actions.parallel;
 import static com.badlogic.gdx.scenes.scene2d.actions.Actions.sequence;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.math.MathUtils;
@@ -26,6 +27,20 @@ public class Board extends Group implements Disposable
     Match3Game game;
     Array<TextureAtlas.AtlasRegion> entities;
     Tile[][] tiles = new Tile[8][8];
+
+    int row, col, size;
+    Vector2 position;
+
+    public Board(Array<TextureAtlas.AtlasRegion> sprites, int row, int col, int size, Vector2 position)
+    {
+        this.entities = sprites;
+        this.row = row;
+        this.col = col;
+        this.size = size;
+        this.position = position;
+
+        init();
+    }
     
     public Board(Match3Game game, Array<TextureAtlas.AtlasRegion> sprites)
     {
@@ -56,7 +71,27 @@ public class Board extends Group implements Disposable
             }
         }
     }
-    
+
+    private void init()
+    {
+        setBounds(0,0,size, size);
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                Tile tile = new Tile(i, j);
+                tile.addListener(clickListener);
+                int num = MathUtils.random(1, 4);
+                float x = position.x + col * size;
+                float y = position.y + row * size;
+                tile.init(this.entities.get(num), num);
+                tile.setSize(size,size);
+                tile.setPosition(x, y);
+                tiles[i][j] = tile;
+
+                this.addActor(tile);
+            }
+        }
+    }
+
     ClickListener clickListener = new ClickListener()
     {
         Tile firstClick;
