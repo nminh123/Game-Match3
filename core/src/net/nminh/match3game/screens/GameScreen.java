@@ -36,13 +36,7 @@ public class GameScreen extends ParentScreen
 
     private void setUpGrid()
     {
-        grid = new Grid(Consts.ROW,
-                        Consts.COL,
-                        Consts.SIZE,
-                        Consts.POSITION,
-                        Assets.getTexture().findRegion("block",1),
-                        Assets.getTexture().findRegion("block", 2));
-//        grid.debugAll();
+        grid = new Grid(Assets.getTexture().findRegions("block"));
         this.addActor(grid);
     }
     

@@ -19,7 +19,6 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
-import net.nminh.match3game.Match3Game;
 import net.nminh.match3game.utils.Consts;
 import net.nminh.match3game.utils.Tile;
 
@@ -27,6 +26,7 @@ public class Board extends Group implements Disposable
 {
     Array<TextureAtlas.AtlasRegion> entities;
     Tile[][] tiles = new Tile[8][8];
+    int matches = 0;
 
     public Board(Array<TextureAtlas.AtlasRegion> sprites, int row, int col, int size, Vector2 position)
     {
@@ -44,7 +44,6 @@ public class Board extends Group implements Disposable
 
     private void initialize()
     {
-        //todo sua lai cai ham nay
         Vector2 position = Consts.POSITION;
         setBounds(0, 0, 640,640);
         for (int i = 0; i < tiles.length; i++)
@@ -106,6 +105,10 @@ public class Board extends Group implements Disposable
                 target.clearActions();
                 firstClick.clearActions();
 
+                System.out.println("First click x: " + firstClick.getX() + "\nFirst click y: " + firstClick.getY());
+                System.out.println("Target click x: " + target.getX() + "\nTarget click y: " + target.getY());
+                System.out.println("Mouse Position x: " + x + "\nMouse Position y: " + y);
+
                 if (target.row == firstClick.row)
                 {
                     if (target.col == firstClick.col + 1 || target.col == firstClick.col - 1)
@@ -117,7 +120,8 @@ public class Board extends Group implements Disposable
                         tiles[firstClick.col][firstClick.row] = target;
                         target.setRowCol(firstClick.row, firstClick.col);
                         firstClick.setRowCol(row, col);
-                        firstClick.addAction(Actions.moveTo(firstClick.row * firstClick.getWidth(), firstClick.col * firstClick.getHeight(), .5f));
+                        firstClick.addAction(Actions.moveTo(firstClick.row * firstClick.getWidth(),
+                                firstClick.col * firstClick.getHeight(), .5f));
                         target.addAction(Actions.moveTo(target.row * target.getWidth(), target.col * target.getHeight(), .5f));
                     }
                 }
@@ -132,7 +136,8 @@ public class Board extends Group implements Disposable
                         tiles[firstClick.col][firstClick.row] = target;
                         target.setRowCol(firstClick.row, firstClick.col);
                         firstClick.setRowCol(row, col);
-                        firstClick.addAction(Actions.moveTo(firstClick.row * firstClick.getWidth(), firstClick.col * firstClick.getHeight(), .5f));
+                        firstClick.addAction(Actions.moveTo(firstClick.row * firstClick.getWidth(),
+                                firstClick.col * firstClick.getHeight(), .5f));
                         target.addAction(Actions.moveTo(target.row * target.getWidth(), target.col * target.getHeight(), .5f));
                     }
                 }
@@ -183,17 +188,23 @@ public class Board extends Group implements Disposable
                 int type = tiles[i][j].getType();
                 if(tiles[i][j] != null)
                 {
-                    if((tiles[i][j + 1] != null || tiles[i][j + 2] != null) || (tiles[i][j -1] != null || tiles[i][j - 2] != null))
+                    if((tiles[i][j + 1] != null || tiles[i][j + 2] != null) ||
+                            (tiles[i][j -1] != null || tiles[i][j - 2] != null))
                     {
-                        if((tiles[i][j + 1].getType() == type && tiles[i][j + 2].getType() == type) || (tiles[i][j - 1].getType() == type && tiles[i][j - 2].getType() == type))
+                        if((tiles[i][j + 1].getType() == type && tiles[i][j + 2].getType() == type) ||
+                                (tiles[i][j - 1].getType() == type && tiles[i][j - 2].getType() == type))
                         {
+                            matches++;
                             return true;
                         }
                     }
-                    if((tiles[i + 1][j] != null || tiles[i + 2][j] != null) || (tiles[i - 1][j] != null || tiles[i - 2][j] != null))
+                    if((tiles[i + 1][j] != null || tiles[i + 2][j] != null) ||
+                            (tiles[i - 1][j] != null || tiles[i - 2][j] != null))
                     {
-                        if((tiles[i + 1][j].getType() == type && tiles[i + 2][j].getType() == type) || (tiles[i - 1][j].getType() == type && tiles[i - 2][j].getType() == type))
+                        if((tiles[i + 1][j].getType() == type && tiles[i + 2][j].getType() == type) ||
+                                (tiles[i - 1][j].getType() == type && tiles[i - 2][j].getType() == type))
                         {
+                            matches++;
                             return true;
                         }
                     }
