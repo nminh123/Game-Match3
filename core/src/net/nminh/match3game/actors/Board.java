@@ -25,17 +25,8 @@ import net.nminh.match3game.utils.Tile;
 
 public class Board extends Group implements Disposable
 {
-    Match3Game game;
     Array<TextureAtlas.AtlasRegion> entities;
     Tile[][] tiles = new Tile[8][8];
-
-    public Board(Match3Game game, Array<TextureAtlas.AtlasRegion> sprites)
-    {
-        this.game = game;
-        this.entities = sprites;
-
-        initialize();
-    }
 
     public Board(Array<TextureAtlas.AtlasRegion> sprites, int row, int col, int size, Vector2 position)
     {
@@ -44,10 +35,18 @@ public class Board extends Group implements Disposable
         initialize(row, col, size, position);
     }
 
+    public Board(Array<TextureAtlas.AtlasRegion> sprites)
+    {
+        this.entities = sprites;
+
+        initialize();
+    }
+
     private void initialize()
     {
         //todo sua lai cai ham nay
-        setBounds(0,0,640,640);
+        Vector2 position = Consts.POSITION;
+        setBounds(0, 0, 640,640);
         for (int i = 0; i < tiles.length; i++)
         {
             for (int j = 0; j < tiles[i].length; j++)
@@ -55,9 +54,13 @@ public class Board extends Group implements Disposable
                 Tile tile = new Tile(i ,j);
                 tile.addListener(clickListener);
                 int num = MathUtils.random(1,4);
+                float x = position.x + j * Consts.SIZE;
+                float y = position.y + i * Consts.SIZE;
                 tile.init(this.entities.get(num),num);
 //                tile.setPosition(j * tile.getWidth(), i * tile.getHeight());
-                tile.setPosition(90, 220, Align.center);
+//                tile.setPosition(90, 220, Align.center);
+//                tile.setPosition(i * Consts.SIZE, j * Consts.SIZE);
+                tile.setPosition(x, y);
                 tile.setSize(Consts.SIZE,Consts.SIZE);
                 tiles[i][j] = tile;
                 this.addActor(tile);
@@ -114,8 +117,8 @@ public class Board extends Group implements Disposable
                         tiles[firstClick.col][firstClick.row] = target;
                         target.setRowCol(firstClick.row, firstClick.col);
                         firstClick.setRowCol(row, col);
-                        firstClick.addAction(Actions.moveTo(firstClick.row * firstClick.getWidth(), firstClick.col * firstClick.getHeight(), 2));
-                        target.addAction(Actions.moveTo(target.row * target.getWidth(), target.col * target.getHeight(), 2));
+                        firstClick.addAction(Actions.moveTo(firstClick.row * firstClick.getWidth(), firstClick.col * firstClick.getHeight(), .5f));
+                        target.addAction(Actions.moveTo(target.row * target.getWidth(), target.col * target.getHeight(), .5f));
                     }
                 }
                 else if (target.col == firstClick.col)
@@ -129,8 +132,8 @@ public class Board extends Group implements Disposable
                         tiles[firstClick.col][firstClick.row] = target;
                         target.setRowCol(firstClick.row, firstClick.col);
                         firstClick.setRowCol(row, col);
-                        firstClick.addAction(Actions.moveTo(firstClick.row * firstClick.getWidth(), firstClick.col * firstClick.getHeight(), 2));
-                        target.addAction(Actions.moveTo(target.row * target.getWidth(), target.col * target.getHeight(), 2));
+                        firstClick.addAction(Actions.moveTo(firstClick.row * firstClick.getWidth(), firstClick.col * firstClick.getHeight(), .5f));
+                        target.addAction(Actions.moveTo(target.row * target.getWidth(), target.col * target.getHeight(), .5f));
                     }
                 }
             }
@@ -172,6 +175,45 @@ public class Board extends Group implements Disposable
             }
         };
     };
+
+    private boolean findMatches()
+    {
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
+                int type = tiles[i][j].getType();
+                if(tiles[i][j] != null)
+                {
+                    if((tiles[i][j + 1] != null || tiles[i][j + 2] != null) || (tiles[i][j -1] != null || tiles[i][j - 2] != null))
+                    {
+                        if((tiles[i][j + 1].getType() == type && tiles[i][j + 2].getType() == type) || (tiles[i][j - 1].getType() == type && tiles[i][j - 2].getType() == type))
+                        {
+                            return true;
+                        }
+                    }
+                    if((tiles[i + 1][j] != null || tiles[i + 2][j] != null) || (tiles[i - 1][j] != null || tiles[i - 2][j] != null))
+                    {
+                        if((tiles[i + 1][j].getType() == type && tiles[i + 2][j].getType() == type) || (tiles[i - 1][j].getType() == type && tiles[i - 2][j].getType() == type))
+                        {
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    private void RemoveTile()
+    {
+        if(findMatches())
+        {
+            for (int i = 0; i < tiles.length; i++) {
+                for (int j = 0; j < tiles[i].length; j++) {
+                    tiles[i][j].remove();
+                }
+            }
+        }
+    }
 
     @Override
     public void dispose()

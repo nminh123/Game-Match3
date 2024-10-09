@@ -9,6 +9,7 @@ public class Tile extends Image
     public int row;
     public int col;
     public int type = -1;
+    private boolean a;
 
     public Tile(){}
 
@@ -22,7 +23,7 @@ public class Tile extends Image
         setSize(getWidth(), getHeight());
         setBounds(getX(), getY(), getWidth(), getHeight());
         setDrawable(new TextureRegionDrawable(sprite));
-        debug();
+//        debug();
         this.type = index;
     }
 
@@ -37,5 +38,10 @@ public class Tile extends Image
     public void setRowCol(int row, int col){
         this.row = row;
         this.col = col;
+    }
+
+    public int getType()
+    {
+        return type;
     }
 }

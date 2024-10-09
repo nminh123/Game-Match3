@@ -42,13 +42,13 @@ public class GameScreen extends ParentScreen
                         Consts.POSITION,
                         Assets.getTexture().findRegion("block",1),
                         Assets.getTexture().findRegion("block", 2));
-        grid.debugAll();
+//        grid.debugAll();
         this.addActor(grid);
     }
     
     private void setUpBoard()
     {
-        board = new Board(game, Assets.getTexture().findRegions("color"));
+        board = new Board(Assets.getTexture().findRegions("color"));
 //        board = new Board(Assets.getTexture().findRegions("color"), Consts.ROW, Consts.COL, Consts.SIZE, Consts.POSITION);
         this.addActor(board);
     }
