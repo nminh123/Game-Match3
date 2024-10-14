@@ -10,7 +10,8 @@ import java.util.HashMap;
 public class Assets
 {
     static HashMap<String, TextureRegion> texturesMap = new HashMap<>();
-    static HashMap<String, Animation> animationsMap = new HashMap<>();
+//    static HashMap<String, Animation> animationsMap = new HashMap<>();
+    static HashMap<String, TextureAtlas> spineMap = new HashMap<>();
     static TextureAtlas atlas;
 
     public Assets() {}
@@ -45,11 +46,18 @@ public class Assets
         texturesMap.put(Consts.COLOR5, new TextureRegion(new Texture(Utils.getInternalPath(Consts.COLOR5))));
 
         atlas = new TextureAtlas(Utils.getInternalPath(Consts.TEXTURES_ATLAS));
+
+        spineMap.put(Consts.CHAR1_ATLAS, new TextureAtlas(Utils.getInternalPath(Consts.CHAR1_ATLAS)));
+        spineMap.put(Consts.CHAR2_ATLAS, new TextureAtlas(Utils.getInternalPath(Consts.CHAR2_ATLAS)));
+        spineMap.put(Consts.CHAR3_ATLAS, new TextureAtlas(Utils.getInternalPath(Consts.CHAR3_ATLAS)));
+        spineMap.put(Consts.FARMERGIRL_ATLAS, new TextureAtlas(Utils.getInternalPath(Consts.FARMERGIRL_ATLAS)));
     }
 
     public static TextureRegion getRegion(String key) {return texturesMap.get(key);}
 
     public static TextureAtlas getTexture() {return atlas;}
+
+    public static TextureAtlas getSpineAtlas(String key) {return spineMap.get(key);}
 
     public static void dispose()
     {

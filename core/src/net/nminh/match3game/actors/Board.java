@@ -56,9 +56,8 @@ public class Board extends Group implements Disposable
                 float x = position.x + j * Consts.SIZE;
                 float y = position.y + i * Consts.SIZE;
                 tile.init(this.entities.get(num),num);
-//                tile.setPosition(j * tile.getWidth(), i * tile.getHeight());
-//                tile.setPosition(90, 220, Align.center);
 //                tile.setPosition(i * Consts.SIZE, j * Consts.SIZE);
+//                setBounds(0, 0, tile.getWidth(), tile.getHeight());
                 tile.setPosition(x, y);
                 tile.setSize(Consts.SIZE,Consts.SIZE);
                 tiles[i][j] = tile;
@@ -107,17 +106,24 @@ public class Board extends Group implements Disposable
 
                 System.out.println("First click x: " + firstClick.getX() + "\nFirst click y: " + firstClick.getY());
                 System.out.println("Target click x: " + target.getX() + "\nTarget click y: " + target.getY());
-                System.out.println("Mouse Position x: " + x + "\nMouse Position y: " + y);
+                System.out.println("Mouse Position x: " + Gdx.input.getX() + "\nMouse Position y: " + Gdx.input.getY());
 
                 if (target.row == firstClick.row)
                 {
                     if (target.col == firstClick.col + 1 || target.col == firstClick.col - 1)
                     {
-                        System.out.println("swap row target <> firstclick");
+                        System.out.println("Swap row target <> firstclick");
                         int row = target.row;
                         int col = target.col;
                         tiles[target.col][target.row] = firstClick;
                         tiles[firstClick.col][firstClick.row] = target;
+
+//                        firstClick.setPosition(target.row * getWidth(), target.col * getHeight());
+//                        target.setPosition(firstClick.row * getWidth(), firstClick.col * getHeight());
+
+//                        firstClick.setPosition(firstClick.row * firstClick.getWidth(), firstClick.col * firstClick.getHeight());
+//                        target.setPosition(target.row * target.getWidth(), target.col * target.getHeight());
+
                         target.setRowCol(firstClick.row, firstClick.col);
                         firstClick.setRowCol(row, col);
                         firstClick.addAction(Actions.moveTo(firstClick.row * firstClick.getWidth(),
@@ -129,11 +135,18 @@ public class Board extends Group implements Disposable
                 {
                     if (target.row == firstClick.row + 1 || target.row == firstClick.row - 1)
                     {
-                        System.out.println("swap col target <> firstclick");
+                        System.out.println("Swap col target <> firstclick");
                         int row = target.row;
                         int col = target.col;
                         tiles[target.col][target.row] = firstClick;
                         tiles[firstClick.col][firstClick.row] = target;
+
+//                        firstClick.setPosition(target.row * getWidth(), target.col * getHeight());
+//                        target.setPosition(firstClick.row * getWidth(), firstClick.col * getHeight());
+
+//                        firstClick.setPosition(firstClick.row * firstClick.getWidth(), firstClick.col * firstClick.getHeight());
+//                        target.setPosition(target.row * target.getWidth(), target.col * target.getHeight());
+
                         target.setRowCol(firstClick.row, firstClick.col);
                         firstClick.setRowCol(row, col);
                         firstClick.addAction(Actions.moveTo(firstClick.row * firstClick.getWidth(),

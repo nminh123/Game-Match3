@@ -42,4 +42,9 @@ public class Consts
     public static final String COLOR3 = "asset/color_3.png";
     public static final String COLOR4 = "asset/color_4.png";
     public static final String COLOR5 = "asset/color_5.png";
+
+    public static final String CHAR1_ATLAS = "asset/anim/animal/char_1/char_1.atlas";
+    public static final String CHAR2_ATLAS = "asset/anim/animal/char_2/char_2.atlas";
+    public static final String CHAR3_ATLAS = "asset/anim/animal/char_3/char_3.atlas";
+    public static final String FARMERGIRL_ATLAS = "asset/anim/girl/farmer_girl.atlas";
 }
