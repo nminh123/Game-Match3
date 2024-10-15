@@ -47,4 +47,5 @@ public class Consts
     public static final String CHAR2_ATLAS = "asset/anim/animal/char_2/char_2.atlas";
     public static final String CHAR3_ATLAS = "asset/anim/animal/char_3/char_3.atlas";
     public static final String FARMERGIRL_ATLAS = "asset/anim/girl/farmer_girl.atlas";
+    public static final String FARMERGIRL_SKEL = "asset/anim/girl/farmer_girl.skel";
 }
