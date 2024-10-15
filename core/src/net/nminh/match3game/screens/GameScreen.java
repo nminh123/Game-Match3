@@ -1,9 +1,11 @@
 package net.nminh.match3game.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.Rectangle;
 
 import net.nminh.match3game.Match3Game;
 import net.nminh.match3game.actors.Board;
+import net.nminh.match3game.actors.FramesPerSecond;
 import net.nminh.match3game.actors.Grid;
 import net.nminh.match3game.utils.Consts;
 import net.nminh.match3game.utils.Assets;
@@ -15,6 +17,7 @@ public class GameScreen extends ParentScreen
     Background bg;
     Board board;
     Grid grid;
+    FramesPerSecond fps;
 
     public GameScreen(Match3Game game)
     {
@@ -32,6 +35,7 @@ public class GameScreen extends ParentScreen
         setUpBG();
         setUpGrid();
         setUpBoard();
+        setUpFPS();
     }
 
     private void setUpGrid()
@@ -52,6 +56,15 @@ public class GameScreen extends ParentScreen
         bg = new Background(Assets.getRegion(Consts.GAMESCREEN_BG));
         bg.debugAll();
         this.addActor(bg);
+    }
+
+    private void setUpFPS()
+    {
+        Rectangle fpsBounds = new Rectangle(getCamera().viewportWidth * -320 / -64,
+                getCamera().viewportHeight * 1.04f, getCamera().viewportWidth,
+                getCamera().viewportHeight);
+        fps = new FramesPerSecond(fpsBounds);
+        this.addActor(fps);
     }
 
     @Override

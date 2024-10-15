@@ -58,6 +58,7 @@ public class Board extends Group implements Disposable
                 tile.init(this.entities.get(num),num);
 //                tile.setPosition(i * Consts.SIZE, j * Consts.SIZE);
 //                setBounds(0, 0, tile.getWidth(), tile.getHeight());
+//                setPosition(0,0);
                 tile.setPosition(x, y);
                 tile.setSize(Consts.SIZE,Consts.SIZE);
                 tiles[i][j] = tile;

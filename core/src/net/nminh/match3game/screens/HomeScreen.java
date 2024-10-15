@@ -173,6 +173,7 @@ public class HomeScreen extends ParentScreen
         Logo_BG.getTexture().dispose();
         Logo_Purple_Donut.getTexture().dispose();
         Logo_Green_Donut.getTexture().dispose();
+        fps.dispose();
 
         for(Image image : images)
         {
