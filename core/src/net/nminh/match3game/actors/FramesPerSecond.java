@@ -46,7 +46,7 @@ public class FramesPerSecond extends Actor implements Disposable
 
         layout.setText(font,
                 fpsText,
-                Color.MAROON,
+                Color.CYAN,
                 bounds.width * 10,
                 Align.topLeft,
                 true);

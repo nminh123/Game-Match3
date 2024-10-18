@@ -1,0 +1,7 @@
+net.nminh.candycrush.android-pngs-0 /Users/nhatminh/Documents/nhatminhh/GitHub/Game-Match3/android/build/generated/res/pngs/release
+net.nminh.candycrush.android-resValues-1 /Users/nhatminh/Documents/nhatminhh/GitHub/Game-Match3/android/build/generated/res/resValues/release
+net.nminh.candycrush.android-packageReleaseResources-2 /Users/nhatminh/Documents/nhatminhh/GitHub/Game-Match3/android/build/intermediates/incremental/release/packageReleaseResources/merged.dir
+net.nminh.candycrush.android-packageReleaseResources-3 /Users/nhatminh/Documents/nhatminhh/GitHub/Game-Match3/android/build/intermediates/incremental/release/packageReleaseResources/stripped.dir
+net.nminh.candycrush.android-merged_res-4 /Users/nhatminh/Documents/nhatminhh/GitHub/Game-Match3/android/build/intermediates/merged_res/release
+net.nminh.candycrush.android-android-5 /Users/nhatminh/Documents/nhatminhh/GitHub/Game-Match3/android/res
+net.nminh.candycrush.android-release-6 /Users/nhatminh/Documents/nhatminhh/GitHub/Game-Match3/android/src/release/res

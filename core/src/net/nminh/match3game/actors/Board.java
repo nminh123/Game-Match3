@@ -57,9 +57,6 @@ public class Board extends Group implements Disposable
                 float x = position.x + j * Consts.SIZE;
                 float y = position.y + i * Consts.SIZE;
                 tile.init(this.entities.get(num),num);
-//                tile.setPosition(i * Consts.SIZE, j * Consts.SIZE);
-//                setBounds(0, 0, tile.getWidth(), tile.getHeight());
-//                setPosition(0,0);
                 tile.setPosition(x, y);
                 tile.setSize(Consts.SIZE,Consts.SIZE);
                 tiles[i][j] = tile;
@@ -142,8 +139,10 @@ public class Board extends Group implements Disposable
                         target.setRowCol(firstClick.row, firstClick.col);
                         firstClick.setRowCol(row, col);
 
-                        firstClick.addAction(Actions.moveTo(position.x + firstClick.row * Consts.SIZE, position.y + firstClick.col * Consts.SIZE, .15f));
-                        target.addAction(Actions.moveTo(position.x + target.row * Consts.SIZE, position.y + target.col * Consts.SIZE, .15f));
+                        firstClick.addAction(Actions.moveTo(position.x + firstClick.row * Consts.SIZE,
+                                position.y + firstClick.col * Consts.SIZE, .15f));
+                        target.addAction(Actions.moveTo(position.x + target.row * Consts.SIZE,
+                                position.y + target.col * Consts.SIZE, .15f));
                     }
                 }
             }
