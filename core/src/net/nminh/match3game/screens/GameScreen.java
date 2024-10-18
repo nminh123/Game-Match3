@@ -19,7 +19,7 @@ public class GameScreen extends ParentScreen
     Board board;
     Grid grid;
     FramesPerSecond fps;
-    FarmGirl farmGirl;
+//    FarmGirl farmGirl;
 
     public GameScreen(Match3Game game)
     {
@@ -38,7 +38,7 @@ public class GameScreen extends ParentScreen
         setUpGrid();
         setUpBoard();
         setUpFPS();
-        setUpFarmGirl();
+//        setUpFarmGirl();
     }
 
     private void setUpGrid()
@@ -70,12 +70,12 @@ public class GameScreen extends ParentScreen
         this.addActor(fps);
     }
 
-    private void setUpFarmGirl()
-    {
-        farmGirl = new FarmGirl();
-        farmGirl.debug();
-        this.addActor(farmGirl);
-    }
+//    private void setUpFarmGirl()
+//    {
+//        farmGirl = new FarmGirl();
+//        farmGirl.debug();
+//        this.addActor(farmGirl);
+//    }
 
     @Override
     public void render(float delta)
@@ -95,6 +95,6 @@ public class GameScreen extends ParentScreen
         super.dispose();
         board.dispose();
         bg.dispose();
-        farmGirl.dispose();
+//        farmGirl.dispose();
     }
 }

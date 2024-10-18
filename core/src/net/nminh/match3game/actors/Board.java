@@ -26,6 +26,7 @@ public class Board extends Group implements Disposable
 {
     Array<TextureAtlas.AtlasRegion> entities;
     Tile[][] tiles = new Tile[8][8];
+    Vector2 position;
     int matches = 0;
 
     public Board(Array<TextureAtlas.AtlasRegion> sprites, int row, int col, int size, Vector2 position)
@@ -44,7 +45,7 @@ public class Board extends Group implements Disposable
 
     private void initialize()
     {
-        Vector2 position = Consts.POSITION;
+        position = Consts.POSITION;
         setBounds(0, 0, 640,640);
         for (int i = 0; i < tiles.length; i++)
         {
@@ -119,17 +120,13 @@ public class Board extends Group implements Disposable
                         tiles[target.col][target.row] = firstClick;
                         tiles[firstClick.col][firstClick.row] = target;
 
-//                        firstClick.setPosition(target.row * getWidth(), target.col * getHeight());
-//                        target.setPosition(firstClick.row * getWidth(), firstClick.col * getHeight());
-
-//                        firstClick.setPosition(firstClick.row * firstClick.getWidth(), firstClick.col * firstClick.getHeight());
-//                        target.setPosition(target.row * target.getWidth(), target.col * target.getHeight());
-
                         target.setRowCol(firstClick.row, firstClick.col);
                         firstClick.setRowCol(row, col);
-                        firstClick.addAction(Actions.moveTo(firstClick.row * firstClick.getWidth(),
-                                firstClick.col * firstClick.getHeight(), .5f));
-                        target.addAction(Actions.moveTo(target.row * target.getWidth(), target.col * target.getHeight(), .5f));
+
+                        firstClick.addAction(Actions.moveTo( position.x + firstClick.row * Consts.SIZE,
+                                position.y + firstClick.col * Consts.SIZE, .15f));
+                        target.addAction(Actions.moveTo(position.x + target.row * Consts.SIZE,
+                                position.y + target.col * Consts.SIZE, .15f));
                     }
                 }
                 else if (target.col == firstClick.col)
@@ -142,17 +139,11 @@ public class Board extends Group implements Disposable
                         tiles[target.col][target.row] = firstClick;
                         tiles[firstClick.col][firstClick.row] = target;
 
-//                        firstClick.setPosition(target.row * getWidth(), target.col * getHeight());
-//                        target.setPosition(firstClick.row * getWidth(), firstClick.col * getHeight());
-
-//                        firstClick.setPosition(firstClick.row * firstClick.getWidth(), firstClick.col * firstClick.getHeight());
-//                        target.setPosition(target.row * target.getWidth(), target.col * target.getHeight());
-
                         target.setRowCol(firstClick.row, firstClick.col);
                         firstClick.setRowCol(row, col);
-                        firstClick.addAction(Actions.moveTo(firstClick.row * firstClick.getWidth(),
-                                firstClick.col * firstClick.getHeight(), .5f));
-                        target.addAction(Actions.moveTo(target.row * target.getWidth(), target.col * target.getHeight(), .5f));
+
+                        firstClick.addAction(Actions.moveTo(position.x + firstClick.row * Consts.SIZE, position.y + firstClick.col * Consts.SIZE, .15f));
+                        target.addAction(Actions.moveTo(position.x + target.row * Consts.SIZE, position.y + target.col * Consts.SIZE, .15f));
                     }
                 }
             }

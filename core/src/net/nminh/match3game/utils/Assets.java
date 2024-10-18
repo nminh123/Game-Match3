@@ -13,6 +13,7 @@ public class Assets
 //    static HashMap<String, Animation> animationsMap = new HashMap<>();
     static HashMap<String, TextureAtlas> spineMap = new HashMap<>();
     static TextureAtlas atlas;
+    static TextureAtlas SettingPOPUP;
 
     public Assets() {}
 
@@ -46,6 +47,7 @@ public class Assets
         texturesMap.put(Consts.COLOR5, new TextureRegion(new Texture(Utils.getInternalPath(Consts.COLOR5))));
 
         atlas = new TextureAtlas(Utils.getInternalPath(Consts.TEXTURES_ATLAS));
+        SettingPOPUP = new TextureAtlas(Utils.getInternalPath(Consts.SETTING_POPUP));
 
         spineMap.put(Consts.CHAR1_ATLAS, new TextureAtlas(Utils.getInternalPath(Consts.CHAR1_ATLAS)));
         spineMap.put(Consts.CHAR2_ATLAS, new TextureAtlas(Utils.getInternalPath(Consts.CHAR2_ATLAS)));
@@ -56,6 +58,8 @@ public class Assets
     public static TextureRegion getRegion(String key) {return texturesMap.get(key);}
 
     public static TextureAtlas getTexture() {return atlas;}
+
+    public static TextureAtlas getSettingPOPUP(){return SettingPOPUP;}
 
     public static TextureAtlas getSpineAtlas(String key) {return spineMap.get(key);}
 

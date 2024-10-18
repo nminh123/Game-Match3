@@ -48,4 +48,5 @@ public class Consts
     public static final String CHAR3_ATLAS = "asset/anim/animal/char_3/char_3.atlas";
     public static final String FARMERGIRL_ATLAS = "asset/anim/girl/farmer_girl.atlas";
     public static final String FARMERGIRL_SKEL = "asset/anim/girl/farmer_girl.skel";
+    public static final String SETTING_POPUP = "atlas/ui/SettingPOPUP/SettingPOPUP.atlas";
 }
