@@ -19,7 +19,7 @@ import net.nminh.match3game.utils.Utils;
  */
 public class FarmGirl extends Actor implements Disposable
 {
-    TextureAtlas atlas;//
+    TextureAtlas atlas;
     Skeleton skeleton;
     AnimationStateData stateData;
     AnimationState state;
