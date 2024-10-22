@@ -22,54 +22,47 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import net.nminh.match3game.utils.Consts;
 import net.nminh.match3game.utils.Tile;
 
-public class Board extends Group implements Disposable
-{
+public class Board extends Group implements Disposable {
     Array<TextureAtlas.AtlasRegion> entities;
     Tile[][] tiles = new Tile[8][8];
     Vector2 position;
 
-    public Board(Array<TextureAtlas.AtlasRegion> sprites, int row, int col, int size, Vector2 position)
-    {
+    public Board(Array<TextureAtlas.AtlasRegion> sprites, int row, int col, int size, Vector2 position) {
         this.entities = sprites;
 
         initialize(row, col, size, position);
     }
 
-    public Board(Array<TextureAtlas.AtlasRegion> sprites)
-    {
+    public Board(Array<TextureAtlas.AtlasRegion> sprites) {
         this.entities = sprites;
 
         initialize();
     }
 
-    private void initialize()
-    {
+    private void initialize() {
         position = Consts.POSITION;
-        setBounds(0, 0, 640,640);
-        for (int i = 0; i < tiles.length; i++)
-        {
-            for (int j = 0; j < tiles[i].length; j++)
-            {
-                Tile tile = new Tile(i ,j);
+        setBounds(0, 0, 640, 640);
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
+                Tile tile = new Tile(i, j);
                 tile.addListener(clickListener);
-                int num = MathUtils.random(1,4);
+                int num = MathUtils.random(1, 4);
                 float x = position.x + j * Consts.SIZE;
                 float y = position.y + i * Consts.SIZE;
-                tile.init(this.entities.get(num),num);
+                tile.init(this.entities.get(num), num);
                 tile.setPosition(x, y);
-                tile.setSize(Consts.SIZE,Consts.SIZE);
+                tile.setSize(Consts.SIZE, Consts.SIZE);
                 tiles[i][j] = tile;
                 this.addActor(tile);
 
-                if(tiles[i][j] == null)
+                if (tiles[i][j] == null)
                     Gdx.app.log("Board", "Could not found Board Texture");
             }
         }
     }
 
-    private void initialize(int row, int col, int size, Vector2 position)
-    {
-        setBounds(0,0,640, 640);
+    private void initialize(int row, int col, int size, Vector2 position) {
+        setBounds(0, 0, 640, 640);
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 Tile tile = new Tile(i, j);
@@ -78,7 +71,7 @@ public class Board extends Group implements Disposable
                 float x = position.x + col * size;
                 float y = position.y + row * size;
                 tile.init(this.entities.get(num), num);
-                tile.setSize(size,size);
+                tile.setSize(size, size);
                 tile.setPosition(x, y);
                 tiles[i][j] = tile;
 
@@ -87,18 +80,15 @@ public class Board extends Group implements Disposable
         }
     }
 
-    ClickListener clickListener = new ClickListener()
-    {
+    ClickListener clickListener = new ClickListener() {
         Tile firstClick;
         int count = 0;
 
         @Override
-        public void clicked(InputEvent event, float x, float y)
-        {
+        public void clicked(InputEvent event, float x, float y) {
             Tile target = (Tile) event.getTarget();
 
-            if (firstClick != null)
-            {
+            if (firstClick != null) {
                 target.clearActions();
                 firstClick.clearActions();
 
@@ -106,10 +96,8 @@ public class Board extends Group implements Disposable
                 System.out.println("Target click x: " + target.getX() + "\nTarget click y: " + target.getY());
                 System.out.println("Mouse Position x: " + Gdx.input.getX() + "\nMouse Position y: " + Gdx.input.getY());
 
-                if (target.row == firstClick.row)
-                {
-                    if (target.col == firstClick.col + 1 || target.col == firstClick.col - 1)
-                    {
+                if (target.row == firstClick.row) {
+                    if (target.col == firstClick.col + 1 || target.col == firstClick.col - 1) {
                         System.out.println("Swap row target <> firstclick");
                         int row = target.row;
                         int col = target.col;
@@ -119,17 +107,14 @@ public class Board extends Group implements Disposable
                         target.setRowCol(firstClick.row, firstClick.col);
                         firstClick.setRowCol(row, col);
 
-                        firstClick.addAction(Actions.moveTo( position.x + firstClick.row * Consts.SIZE,
+                        firstClick.addAction(Actions.moveTo(position.x + firstClick.row * Consts.SIZE,
                                 position.y + firstClick.col * Consts.SIZE, .15f));
                         target.addAction(Actions.moveTo(position.x + target.row * Consts.SIZE,
                                 position.y + target.col * Consts.SIZE, .15f));
                         findMatches();
                     }
-                }
-                else if (target.col == firstClick.col)
-                {
-                    if (target.row == firstClick.row + 1 || target.row == firstClick.row - 1)
-                    {
+                } else if (target.col == firstClick.col) {
+                    if (target.row == firstClick.row + 1 || target.row == firstClick.row - 1) {
                         System.out.println("Swap col target <> firstclick");
                         int row = target.row;
                         int col = target.col;
@@ -151,17 +136,12 @@ public class Board extends Group implements Disposable
             count++;
             firstClick = target;
 
-            if (count == 2)
-            {
+            if (count == 2) {
                 firstClick = null;
                 count = 0;
-            }
-            else
-            {
-                for (Tile[] tile : tiles)
-                {
-                    for (Tile t : tile)
-                    {
+            } else {
+                for (Tile[] tile : tiles) {
+                    for (Tile t : tile) {
                         t.setTouchable(Touchable.disabled);
                     }
                 }
@@ -186,45 +166,33 @@ public class Board extends Group implements Disposable
         };
     };
 
-    private void findMatches()
-    {
+    private void findMatches() {
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[i].length; j++) {
                 int type = tiles[i][j].getType();
-                if(tiles[i][j] != null)
-                {
-                    if((tiles[i][j + 1] != null || tiles[i][j + 2] != null) ||
-                            (tiles[i][j -1] != null || tiles[i][j - 2] != null))
-                    {
-                        if((tiles[i][j + 1].getType() == type && tiles[i][j + 2].getType() == type))
-                        {
-                            for (int k = 0; k <= 3; k++)
-                            {
+                if (tiles[i][j] != null) {
+                    if ((tiles[i][j + 1] != null || tiles[i][j + 2] != null) ||
+                            (tiles[i][j - 1] != null || tiles[i][j - 2] != null)) {
+                        if ((tiles[i][j + 1].getType() == type && tiles[i][j + 2].getType() == type)) {
+                            for (int k = 0; k <= 3; k++) {
                                 tiles[i][j + k].addAction(Actions.fadeOut(.5f));
                                 tiles[i][j + k].clear();
                             }
-                        }
-                        else if ((tiles[i][j - 1].getType() == type && tiles[i][j - 2].getType() == type))
-                        {
-                            for (int k = 0; k <= 3; k++)
-                            {
+                        } else if ((tiles[i][j - 1].getType() == type && tiles[i][j - 2].getType() == type)) {
+                            for (int k = 0; k <= 3; k++) {
                                 tiles[i][j - k].addAction(Actions.fadeOut(.5f));
                                 tiles[i][j - k].clear();
                             }
                         }
                     }
-                    if((tiles[i + 1][j] != null || tiles[i + 2][j] != null) ||
-                            (tiles[i - 1][j] != null || tiles[i - 2][j] != null))
-                    {
-                        if((tiles[i + 1][j].getType() == type && tiles[i + 2][j].getType() == type))
-                        {
+                    if ((tiles[i + 1][j] != null || tiles[i + 2][j] != null) ||
+                            (tiles[i - 1][j] != null || tiles[i - 2][j] != null)) {
+                        if ((tiles[i + 1][j].getType() == type && tiles[i + 2][j].getType() == type)) {
                             for (int k = 0; k <= 3; k++) {
                                 tiles[i + k][j].addAction(Actions.fadeOut(.3f));
                                 tiles[i + k][j].clear();
                             }
-                        }
-                        else if((tiles[i - 1][j].getType() == type && tiles[i - 2][j].getType() == type))
-                        {
+                        } else if ((tiles[i - 1][j].getType() == type && tiles[i - 2][j].getType() == type)) {
                             for (int k = 0; k <= 3; k++) {
                                 tiles[i - k][j].addAction(Actions.fadeOut(.3f));
                                 tiles[i - k][j].clear();
@@ -232,6 +200,24 @@ public class Board extends Group implements Disposable
                         }
                     }
                 }
+            }
+        }
+    }
+
+    private void FallingTiles(Tile tile1, Tile tile2)
+    {
+        if (tile2.row == tile1.row)
+        {
+            if (tile2.col == tile1.col - 1)
+            {
+                int row = tile1.row;
+                int col = tile1.col;
+
+                tile2.setRowCol(row, col);
+                tile2.addAction(Actions.moveTo(
+                        position.x + tile2.row * Consts.SIZE,
+                        position.y + tile2.col * Consts.SIZE,
+                        0.15f));
             }
         }
     }
