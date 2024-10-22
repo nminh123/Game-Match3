@@ -27,7 +27,6 @@ public class Board extends Group implements Disposable
     Array<TextureAtlas.AtlasRegion> entities;
     Tile[][] tiles = new Tile[8][8];
     Vector2 position;
-    int matches = 0;
 
     public Board(Array<TextureAtlas.AtlasRegion> sprites, int row, int col, int size, Vector2 position)
     {
@@ -185,7 +184,7 @@ public class Board extends Group implements Disposable
         };
     };
 
-    private boolean findMatches()
+    private void findMatches()
     {
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[i].length; j++) {
@@ -198,8 +197,10 @@ public class Board extends Group implements Disposable
                         if((tiles[i][j + 1].getType() == type && tiles[i][j + 2].getType() == type) ||
                                 (tiles[i][j - 1].getType() == type && tiles[i][j - 2].getType() == type))
                         {
-                            matches++;
-                            return true;
+                            for (int k = 0; k <= 3; k++) {
+                                tiles[i][j + k].addAction(Actions.fadeOut(.5f));
+                                tiles[i][j + k].clear();
+                            }
                         }
                     }
                     if((tiles[i + 1][j] != null || tiles[i + 2][j] != null) ||
@@ -208,23 +209,12 @@ public class Board extends Group implements Disposable
                         if((tiles[i + 1][j].getType() == type && tiles[i + 2][j].getType() == type) ||
                                 (tiles[i - 1][j].getType() == type && tiles[i - 2][j].getType() == type))
                         {
-                            matches++;
-                            return true;
+                            for (int k = 0; k <= 3; k++) {
+                                tiles[i + k][j].addAction(Actions.fadeOut(.5f));
+                                tiles[i + k][j].clear();
+                            }
                         }
                     }
-                }
-            }
-        }
-        return false;
-    }
-
-    private void RemoveTile()
-    {
-        if(findMatches())
-        {
-            for (int i = 0; i < tiles.length; i++) {
-                for (int j = 0; j < tiles[i].length; j++) {
-                    tiles[i][j].remove();
                 }
             }
         }
