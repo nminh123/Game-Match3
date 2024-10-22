@@ -123,6 +123,7 @@ public class Board extends Group implements Disposable
                                 position.y + firstClick.col * Consts.SIZE, .15f));
                         target.addAction(Actions.moveTo(position.x + target.row * Consts.SIZE,
                                 position.y + target.col * Consts.SIZE, .15f));
+                        findMatches();
                     }
                 }
                 else if (target.col == firstClick.col)
@@ -142,6 +143,7 @@ public class Board extends Group implements Disposable
                                 position.y + firstClick.col * Consts.SIZE, .15f));
                         target.addAction(Actions.moveTo(position.x + target.row * Consts.SIZE,
                                 position.y + target.col * Consts.SIZE, .15f));
+                        findMatches();
                     }
                 }
             }
@@ -194,24 +196,38 @@ public class Board extends Group implements Disposable
                     if((tiles[i][j + 1] != null || tiles[i][j + 2] != null) ||
                             (tiles[i][j -1] != null || tiles[i][j - 2] != null))
                     {
-                        if((tiles[i][j + 1].getType() == type && tiles[i][j + 2].getType() == type) ||
-                                (tiles[i][j - 1].getType() == type && tiles[i][j - 2].getType() == type))
+                        if((tiles[i][j + 1].getType() == type && tiles[i][j + 2].getType() == type))
                         {
-                            for (int k = 0; k <= 3; k++) {
+                            for (int k = 0; k <= 3; k++)
+                            {
                                 tiles[i][j + k].addAction(Actions.fadeOut(.5f));
                                 tiles[i][j + k].clear();
+                            }
+                        }
+                        else if ((tiles[i][j - 1].getType() == type && tiles[i][j - 2].getType() == type))
+                        {
+                            for (int k = 0; k <= 3; k++)
+                            {
+                                tiles[i][j - k].addAction(Actions.fadeOut(.5f));
+                                tiles[i][j - k].clear();
                             }
                         }
                     }
                     if((tiles[i + 1][j] != null || tiles[i + 2][j] != null) ||
                             (tiles[i - 1][j] != null || tiles[i - 2][j] != null))
                     {
-                        if((tiles[i + 1][j].getType() == type && tiles[i + 2][j].getType() == type) ||
-                                (tiles[i - 1][j].getType() == type && tiles[i - 2][j].getType() == type))
+                        if((tiles[i + 1][j].getType() == type && tiles[i + 2][j].getType() == type))
                         {
                             for (int k = 0; k <= 3; k++) {
-                                tiles[i + k][j].addAction(Actions.fadeOut(.5f));
+                                tiles[i + k][j].addAction(Actions.fadeOut(.3f));
                                 tiles[i + k][j].clear();
+                            }
+                        }
+                        else if((tiles[i - 1][j].getType() == type && tiles[i - 2][j].getType() == type))
+                        {
+                            for (int k = 0; k <= 3; k++) {
+                                tiles[i - k][j].addAction(Actions.fadeOut(.3f));
+                                tiles[i - k][j].clear();
                             }
                         }
                     }
