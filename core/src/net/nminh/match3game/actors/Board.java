@@ -92,9 +92,9 @@ public class Board extends Group implements Disposable {
                 target.clearActions();
                 firstClick.clearActions();
 
-                System.out.println("First click x: " + firstClick.getX() + "\nFirst click y: " + firstClick.getY());
-                System.out.println("Target click x: " + target.getX() + "\nTarget click y: " + target.getY());
-                System.out.println("Mouse Position x: " + Gdx.input.getX() + "\nMouse Position y: " + Gdx.input.getY());
+//                System.out.println("First click x: " + firstClick.getX() + "\nFirst click y: " + firstClick.getY());
+//                System.out.println("Target click x: " + target.getX() + "\nTarget click y: " + target.getY());
+//                System.out.println("Mouse Position x: " + Gdx.input.getX() + "\nMouse Position y: " + Gdx.input.getY());
 
                 if (target.row == firstClick.row) {
                     if (target.col == firstClick.col + 1 || target.col == firstClick.col - 1) {
@@ -171,20 +171,6 @@ public class Board extends Group implements Disposable {
             for (int j = 0; j < tiles[i].length; j++) {
                 int type = tiles[i][j].getType();
                 if (tiles[i][j] != null) {
-                    if ((tiles[i][j + 1] != null || tiles[i][j + 2] != null) ||
-                            (tiles[i][j - 1] != null || tiles[i][j - 2] != null)) {
-                        if ((tiles[i][j + 1].getType() == type && tiles[i][j + 2].getType() == type)) {
-                            for (int k = 0; k <= 3; k++) {
-                                tiles[i][j + k].addAction(Actions.fadeOut(.5f));
-                                tiles[i][j + k].clear();
-                            }
-                        } else if ((tiles[i][j - 1].getType() == type && tiles[i][j - 2].getType() == type)) {
-                            for (int k = 0; k <= 3; k++) {
-                                tiles[i][j - k].addAction(Actions.fadeOut(.5f));
-                                tiles[i][j - k].clear();
-                            }
-                        }
-                    }
                     if ((tiles[i + 1][j] != null || tiles[i + 2][j] != null) ||
                             (tiles[i - 1][j] != null || tiles[i - 2][j] != null)) {
                         if ((tiles[i + 1][j].getType() == type && tiles[i + 2][j].getType() == type)) {
@@ -196,6 +182,20 @@ public class Board extends Group implements Disposable {
                             for (int k = 0; k <= 3; k++) {
                                 tiles[i - k][j].addAction(Actions.fadeOut(.3f));
                                 tiles[i - k][j].clear();
+                            }
+                        }
+                    }
+                    if ((tiles[i][j + 1] != null || tiles[i][j + 2] != null) ||
+                            (tiles[i][j - 1] != null || tiles[i][j - 2] != null)) {
+                        if ((tiles[i][j + 1].getType() == type && tiles[i][j + 2].getType() == type)) {
+                            for (int k = 0; k <= 3; k++) {
+                                tiles[i][j + k].addAction(Actions.fadeOut(.5f));
+                                tiles[i][j + k].clear();
+                            }
+                        } else if ((tiles[i][j - 1].getType() == type && tiles[i][j - 2].getType() == type)) {
+                            for (int k = 0; k <= 3; k++) {
+                                tiles[i][j - k].addAction(Actions.fadeOut(.5f));
+                                tiles[i][j - k].clear();
                             }
                         }
                     }
