@@ -92,13 +92,9 @@ public class Board extends Group implements Disposable {
                 target.clearActions();
                 firstClick.clearActions();
 
-//                System.out.println("First click x: " + firstClick.getX() + "\nFirst click y: " + firstClick.getY());
-//                System.out.println("Target click x: " + target.getX() + "\nTarget click y: " + target.getY());
-//                System.out.println("Mouse Position x: " + Gdx.input.getX() + "\nMouse Position y: " + Gdx.input.getY());
-
                 if (target.row == firstClick.row) {
                     if (target.col == firstClick.col + 1 || target.col == firstClick.col - 1) {
-                        System.out.println("Swap row target <> firstclick");
+                        System.out.println("Swap col target <> firstclick");
                         int row = target.row;
                         int col = target.col;
                         tiles[target.col][target.row] = firstClick;
@@ -115,7 +111,7 @@ public class Board extends Group implements Disposable {
                     }
                 } else if (target.col == firstClick.col) {
                     if (target.row == firstClick.row + 1 || target.row == firstClick.row - 1) {
-                        System.out.println("Swap col target <> firstclick");
+                        System.out.println("Swap row target <> firstclick");
                         int row = target.row;
                         int col = target.col;
                         tiles[target.col][target.row] = firstClick;
@@ -177,15 +173,17 @@ public class Board extends Group implements Disposable {
                             tiles[i + 1][j] != null && tiles[i + 2][j] != null &&
                             tiles[i + 1][j].getType() == type && tiles[i + 2][j].getType() == type) {
                         for (int k = 0; k < 3; k++) {
-                            tiles[i + k][j].addAction(Actions.fadeOut(0.3f));
-                            tiles[i + k][j].clear();
+                            tiles[i + k][j].addAction(Actions.fadeOut(0.2f));
+//                            tiles[i + k][j].clear();
+                            tiles[i + k][j].remove();
                         }
                     } else if (i - 2 >= 0 &&
                             tiles[i - 1][j] != null && tiles[i - 2][j] != null &&
                             tiles[i - 1][j].getType() == type && tiles[i - 2][j].getType() == type) {
                         for (int k = 0; k < 3; k++) {
-                            tiles[i - k][j].addAction(Actions.fadeOut(0.3f));
-                            tiles[i - k][j].clear();
+                            tiles[i - k][j].addAction(Actions.fadeOut(0.2f));
+//                            tiles[i - k][j].clear();
+                            tiles[i - k][j].remove();
                         }
                     }
 
@@ -193,18 +191,18 @@ public class Board extends Group implements Disposable {
                     if (j + 2 < tiles[i].length &&
                             tiles[i][j + 1] != null && tiles[i][j + 2] != null &&
                             tiles[i][j + 1].getType() == type && tiles[i][j + 2].getType() == type) {
-
                         for (int k = 0; k < 3; k++) {
-                            tiles[i][j + k].addAction(Actions.fadeOut(0.5f));
-                            tiles[i][j + k].clear();
+                            tiles[i][j + k].addAction(Actions.fadeOut(0.2f));
+//                            tiles[i][j + k].clear();
+                            tiles[i][j + k].remove();
                         }
                     } else if (j - 2 >= 0 &&
                             tiles[i][j - 1] != null && tiles[i][j - 2] != null &&
                             tiles[i][j - 1].getType() == type && tiles[i][j - 2].getType() == type) {
-
                         for (int k = 0; k < 3; k++) {
-                            tiles[i][j - k].addAction(Actions.fadeOut(0.5f));
-                            tiles[i][j - k].clear();
+                            tiles[i][j - k].addAction(Actions.fadeOut(0.2f));
+//                            tiles[i][j - k].clear();
+                            tiles[i][j - k].remove();
                         }
                     }
                 }
