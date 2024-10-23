@@ -9,7 +9,6 @@ public class Tile extends Image
     public int row;
     public int col;
     public int type = -1;
-    private boolean a;
 
     public Tile(){}
 

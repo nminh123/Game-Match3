@@ -169,34 +169,42 @@ public class Board extends Group implements Disposable {
     private void findMatches() {
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[i].length; j++) {
-                int type = tiles[i][j].getType();
                 if (tiles[i][j] != null) {
-                    if ((tiles[i + 1][j] != null || tiles[i + 2][j] != null) ||
-                            (tiles[i - 1][j] != null || tiles[i - 2][j] != null)) {
-                        if ((tiles[i + 1][j].getType() == type && tiles[i + 2][j].getType() == type)) {
-                            for (int k = 0; k <= 3; k++) {
-                                tiles[i + k][j].addAction(Actions.fadeOut(.3f));
-                                tiles[i + k][j].clear();
-                            }
-                        } else if ((tiles[i - 1][j].getType() == type && tiles[i - 2][j].getType() == type)) {
-                            for (int k = 0; k <= 3; k++) {
-                                tiles[i - k][j].addAction(Actions.fadeOut(.3f));
-                                tiles[i - k][j].clear();
-                            }
+                    int type = tiles[i][j].getType();
+
+                    // Kiểm tra theo hàng dọc
+                    if (i + 2 < tiles.length &&
+                            tiles[i + 1][j] != null && tiles[i + 2][j] != null &&
+                            tiles[i + 1][j].getType() == type && tiles[i + 2][j].getType() == type) {
+                        for (int k = 0; k < 3; k++) {
+                            tiles[i + k][j].addAction(Actions.fadeOut(0.3f));
+                            tiles[i + k][j].clear();
+                        }
+                    } else if (i - 2 >= 0 &&
+                            tiles[i - 1][j] != null && tiles[i - 2][j] != null &&
+                            tiles[i - 1][j].getType() == type && tiles[i - 2][j].getType() == type) {
+                        for (int k = 0; k < 3; k++) {
+                            tiles[i - k][j].addAction(Actions.fadeOut(0.3f));
+                            tiles[i - k][j].clear();
                         }
                     }
-                    if ((tiles[i][j + 1] != null || tiles[i][j + 2] != null) ||
-                            (tiles[i][j - 1] != null || tiles[i][j - 2] != null)) {
-                        if ((tiles[i][j + 1].getType() == type && tiles[i][j + 2].getType() == type)) {
-                            for (int k = 0; k <= 3; k++) {
-                                tiles[i][j + k].addAction(Actions.fadeOut(.5f));
-                                tiles[i][j + k].clear();
-                            }
-                        } else if ((tiles[i][j - 1].getType() == type && tiles[i][j - 2].getType() == type)) {
-                            for (int k = 0; k <= 3; k++) {
-                                tiles[i][j - k].addAction(Actions.fadeOut(.5f));
-                                tiles[i][j - k].clear();
-                            }
+
+                    // Kiểm tra theo hàng ngang
+                    if (j + 2 < tiles[i].length &&
+                            tiles[i][j + 1] != null && tiles[i][j + 2] != null &&
+                            tiles[i][j + 1].getType() == type && tiles[i][j + 2].getType() == type) {
+
+                        for (int k = 0; k < 3; k++) {
+                            tiles[i][j + k].addAction(Actions.fadeOut(0.5f));
+                            tiles[i][j + k].clear();
+                        }
+                    } else if (j - 2 >= 0 &&
+                            tiles[i][j - 1] != null && tiles[i][j - 2] != null &&
+                            tiles[i][j - 1].getType() == type && tiles[i][j - 2].getType() == type) {
+
+                        for (int k = 0; k < 3; k++) {
+                            tiles[i][j - k].addAction(Actions.fadeOut(0.5f));
+                            tiles[i][j - k].clear();
                         }
                     }
                 }
