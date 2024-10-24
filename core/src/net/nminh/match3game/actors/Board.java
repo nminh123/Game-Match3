@@ -26,6 +26,7 @@ public class Board extends Group implements Disposable {
     Array<TextureAtlas.AtlasRegion> entities;
     Tile[][] tiles = new Tile[8][8];
     Vector2 position;
+    boolean hasMatch = false;
 
     public Board(Array<TextureAtlas.AtlasRegion> sprites, int row, int col, int size, Vector2 position) {
         this.entities = sprites;
