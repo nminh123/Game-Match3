@@ -54,6 +54,7 @@ public class Board extends Group implements Disposable {
                 tile.setPosition(x, y);
                 tile.setSize(Consts.SIZE, Consts.SIZE);
                 tiles[i][j] = tile;
+                findMatches();
                 this.addActor(tile);
 
                 if (tiles[i][j] == null)
@@ -189,8 +190,11 @@ public class Board extends Group implements Disposable {
                     {
                         for (int k = 0; k < 3; k++)
                         {
-                            tiles[i + k][j].addAction(Actions.fadeOut(0.2f));
+//                            tiles[i + k][j].addAction(Actions.fadeOut(0.2f));
                             tiles[i + k][j].remove();
+                            tiles[i + k][j].clear();
+                            tiles[i + k][j].addAction(sequence(Actions.alpha(0,.5f), Actions.fadeOut(.5f)));
+                            fallingTiles(tiles, tiles[i][j].col);
                         }
                     }
                     else if (i - 2 >= 0 &&
@@ -199,8 +203,11 @@ public class Board extends Group implements Disposable {
                     {
                         for (int k = 0; k < 3; k++)
                         {
-                            tiles[i - k][j].addAction(Actions.fadeOut(0.2f));
+//                            tiles[i - k][j].addAction(Actions.fadeOut(0.2f));
                             tiles[i - k][j].remove();
+                            tiles[i - k][j].clear();
+                            tiles[i - k][j].addAction(sequence(Actions.alpha(0,.5f), Actions.fadeOut(.5f)));
+                            fallingTiles(tiles, tiles[i][j].col);
                         }
                     }
 
@@ -211,8 +218,10 @@ public class Board extends Group implements Disposable {
                     {
                         for (int k = 0; k < 3; k++)
                         {
-                            tiles[i][j + k].addAction(Actions.fadeOut(0.2f));
+//                            tiles[i][j + k].addAction(Actions.fadeOut(0.2f));
                             tiles[i][j + k].remove();
+                            tiles[i][j + k].clear();
+                            tiles[i][j + k].addAction(sequence(Actions.alpha(0,.5f), Actions.fadeOut(.5f)));
                         }
                     }
                     else if (j - 2 >= 0 &&
@@ -221,8 +230,10 @@ public class Board extends Group implements Disposable {
                     {
                         for (int k = 0; k < 3; k++)
                         {
-                            tiles[i][j - k].addAction(Actions.fadeOut(0.2f));
+//                            tiles[i][j - k].addAction(Actions.fadeOut(0.2f));
                             tiles[i][j - k].remove();
+                            tiles[i][j - k].clear();
+                            tiles[i][j - k].addAction(sequence(Actions.alpha(0,.5f), Actions.fadeOut(.5f)));
                         }
                     }
                 }
@@ -230,20 +241,41 @@ public class Board extends Group implements Disposable {
         }
     }
 
-    private void FallingTiles(Tile tile1, Tile tile2)
-    {
-        if (tile2.row == tile1.row)
-        {
-            if (tile2.col == tile1.col - 1)
-            {
-                int row = tile1.row;
-                int col = tile1.col;
+//    private void fallingTiles()
+//    {
+//        for (int i = 0; i < tiles.length; i++) {
+//            for (int j = 0; j < tiles[i].length; j++) {
+//                if(tiles[i][j] == null)
+//                {
+//                    tiles[i][j + 1].setRowCol(tiles[i][j].row, tiles[i][j].col);
+//                }
+//            }
+//        }
+//    }
 
-                tile2.setRowCol(row, col);
-                tile2.addAction(Actions.moveTo(
-                        position.x + tile2.row * Consts.SIZE,
-                        position.y + tile2.col * Consts.SIZE,
-                        0.15f));
+    private void fallingTiles(Tile[][] tiles, int col)
+    {
+        for (int row = 0; row < tiles.length - 1; row++)
+        {
+            if (tiles[row][col] == null) {
+                for (int aboveRow = row + 1; aboveRow < tiles.length; aboveRow++)//
+                {
+                    if (tiles[aboveRow][col] != null) {
+                        Tile fallingTile = tiles[aboveRow][col];
+                        tiles[row][col] = fallingTile;
+                        tiles[aboveRow][col] = null;
+
+                        fallingTile.setRowCol(row, col);
+
+                        fallingTile.addAction(Actions.moveTo(
+                                col * Consts.SIZE,
+                                row * Consts.SIZE,
+                                0.2f
+                        ));
+
+                        break;
+                    }
+                }
             }
         }
     }
