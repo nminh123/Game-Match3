@@ -1,5 +1,6 @@
 package net.nminh.match3game.actors.spine;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.scenes.scene2d.Actor;
@@ -11,6 +12,7 @@ import com.esotericsoftware.spine.SkeletonData;
 import com.esotericsoftware.spine.SkeletonJson;
 import com.esotericsoftware.spine.SkeletonRenderer;
 
+import net.nminh.match3game.utils.Assets;
 import net.nminh.match3game.utils.Consts;
 import net.nminh.match3game.utils.Utils;
 
@@ -19,52 +21,42 @@ import net.nminh.match3game.utils.Utils;
  */
 public class FarmGirl extends Actor implements Disposable
 {
-    TextureAtlas atlas;
-    Skeleton skeleton;
-    AnimationStateData stateData;
-    AnimationState state;
-    SkeletonRenderer renderer;
+    private SkeletonRenderer renderer;
+    private Skeleton skeleton;
+    private AnimationState state;
+    private SkeletonData skeletonData;
+    private AnimationStateData stateData;
 
-    public FarmGirl() {
-        init();
-    }
-
-    private void init()
+    public FarmGirl()
     {
-        atlas = new TextureAtlas(Utils.getInternalPath(Consts.FARMERGIRL_ATLAS));
         renderer = new SkeletonRenderer();
-        renderer.setPremultipliedAlpha(false);
+        TextureAtlas atlas = Assets.getSpineAtlas(Consts.FARMERGIRL_ATLAS);
         SkeletonJson json = new SkeletonJson(atlas);
-        SkeletonData skeletonData = json.readSkeletonData(Utils.getInternalPath(Consts.FARMERGIRL_SKEL));
-
-        skeleton = new Skeleton(skeletonData);
+        skeletonData = json.readSkeletonData(Utils.getInternalPath(Consts.FARMERGIRL_SKEL));
         stateData = new AnimationStateData(skeletonData);
         state = new AnimationState(stateData);
-        state.setAnimation(0, "animation", true);
-
-        this.setSize(skeleton.getData().getWidth(), skeleton.getData().getHeight());
-    }
-
-    @Override
-    public void act(float delta) {
-        super.act(delta);
-        state.update(delta);
-        state.apply(skeleton);
-        skeleton.setPosition(getX(), getY());
+        state.setAnimation(0, "idle", true);
+        skeleton = new Skeleton(skeletonData);
+        skeleton.setPosition(0, 0);
         skeleton.updateWorldTransform();
     }
 
     @Override
-    public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
-
-        batch.begin();
+    public void draw(Batch batch, float parentAlpha)
+    {
+        state.update(Gdx.graphics.getDeltaTime());
+        state.apply(skeleton);
+        skeleton.updateWorldTransform();
         renderer.draw(batch, skeleton);
-        batch.end();
     }
 
     @Override
-    public void dispose() {
-        atlas.dispose();
+    public void dispose()
+    {
+        renderer = null;
+        skeleton = null;
+        state = null;
+        skeletonData = null;
+        stateData = null;
     }
 }

@@ -194,7 +194,7 @@ public class Board extends Group implements Disposable {
                             tiles[i + k][j].remove();
                             tiles[i + k][j].clear();
                             tiles[i + k][j].addAction(sequence(Actions.alpha(0,.5f), Actions.fadeOut(.5f)));
-                            fallingTiles(tiles, tiles[i][j].col);
+                            fallingTiles();
                         }
                     }
                     else if (i - 2 >= 0 &&
@@ -207,7 +207,7 @@ public class Board extends Group implements Disposable {
                             tiles[i - k][j].remove();
                             tiles[i - k][j].clear();
                             tiles[i - k][j].addAction(sequence(Actions.alpha(0,.5f), Actions.fadeOut(.5f)));
-                            fallingTiles(tiles, tiles[i][j].col);
+                            fallingTiles();
                         }
                     }
 
@@ -222,6 +222,7 @@ public class Board extends Group implements Disposable {
                             tiles[i][j + k].remove();
                             tiles[i][j + k].clear();
                             tiles[i][j + k].addAction(sequence(Actions.alpha(0,.5f), Actions.fadeOut(.5f)));
+                            fallingTiles();
                         }
                     }
                     else if (j - 2 >= 0 &&
@@ -234,6 +235,7 @@ public class Board extends Group implements Disposable {
                             tiles[i][j - k].remove();
                             tiles[i][j - k].clear();
                             tiles[i][j - k].addAction(sequence(Actions.alpha(0,.5f), Actions.fadeOut(.5f)));
+                            fallingTiles();
                         }
                     }
                 }
@@ -241,39 +243,33 @@ public class Board extends Group implements Disposable {
         }
     }
 
-//    private void fallingTiles()
-//    {
-//        for (int i = 0; i < tiles.length; i++) {
-//            for (int j = 0; j < tiles[i].length; j++) {
-//                if(tiles[i][j] == null)
-//                {
-//                    tiles[i][j + 1].setRowCol(tiles[i][j].row, tiles[i][j].col);
-//                }
-//            }
-//        }
-//    }
-
-    private void fallingTiles(Tile[][] tiles, int col)
+    //Wut de fook iz thiz?
+    private void fallingTiles()
     {
-        for (int row = 0; row < tiles.length - 1; row++)
+        for (int i = 0; i < tiles.length; i++)
         {
-            if (tiles[row][col] == null) {
-                for (int aboveRow = row + 1; aboveRow < tiles.length; aboveRow++)//
+            for (int j = 0; j < tiles[i].length; j++)
+            {
+                if (tiles[i][j] == null)
                 {
-                    if (tiles[aboveRow][col] != null) {
-                        Tile fallingTile = tiles[aboveRow][col];
-                        tiles[row][col] = fallingTile;
-                        tiles[aboveRow][col] = null;
+                    for (int aboveRow = i + 1; aboveRow < tiles.length; aboveRow++)
+                    {
+                        if (tiles[aboveRow][j] != null)
+                        {
+                            Tile fallingTile = tiles[aboveRow][j];
+                            tiles[i][j] = fallingTile;
+                            tiles[aboveRow][j] = null;
 
-                        fallingTile.setRowCol(row, col);
+                            fallingTile.setRowCol(i, j);
 
-                        fallingTile.addAction(Actions.moveTo(
-                                col * Consts.SIZE,
-                                row * Consts.SIZE,
-                                0.2f
-                        ));
+                            fallingTile.addAction(Actions.moveTo(
+                                    j * Consts.SIZE,
+                                    i * Consts.SIZE,
+                                    0.2f
+                            ));
 
-                        break;
+                            break;
+                        }
                     }
                 }
             }

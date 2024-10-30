@@ -38,7 +38,7 @@ public class GameScreen extends ParentScreen
         setUpGrid();
         setUpBoard();
         setUpFPS();
-//        setUpFarmGirl();
+//        setUFarmGirl();
     }
 
     private void setUpGrid()
@@ -53,6 +53,12 @@ public class GameScreen extends ParentScreen
 //        board = new Board(Assets.getTexture().findRegions("color"), Consts.ROW, Consts.COL, Consts.SIZE, Consts.POSITION);
         this.addActor(board);
     }
+
+//    private void setUFarmGirl()
+//    {
+//        farmGirl = new FarmGirl();
+//        this.addActor(farmGirl);
+//    }
 
     private void setUpBG()
     {
