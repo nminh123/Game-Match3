@@ -26,7 +26,6 @@ public class Board extends Group implements Disposable {
     Array<TextureAtlas.AtlasRegion> entities;
     Tile[][] tiles = new Tile[8][8];
     Vector2 position;
-    boolean hasMatch = false;
 
     public Board(Array<TextureAtlas.AtlasRegion> sprites, int row, int col, int size, Vector2 position) {
         this.entities = sprites;
@@ -146,8 +145,7 @@ public class Board extends Group implements Disposable {
                     target.addAction(Actions.moveTo(position.x + target.row * Consts.SIZE,
                             position.y + target.col * Consts.SIZE, .15f));
                     findMatches();
-                    if (hasMatch == true)
-                        fallingTiles();
+                    fallingTiles();
                 }
             } else if (target.col == firstClick.col) {
                 if (target.row == firstClick.row + 1 || target.row == firstClick.row - 1) {
@@ -165,8 +163,7 @@ public class Board extends Group implements Disposable {
                     target.addAction(Actions.moveTo(position.x + target.row * Consts.SIZE,
                             position.y + target.col * Consts.SIZE, .15f));
                     findMatches();
-                    if (!hasMatch == true)
-                        fallingTiles();
+                    fallingTiles();
                 }
             }
         }
@@ -187,7 +184,6 @@ public class Board extends Group implements Disposable {
                             tiles[i + k][j].remove();
                             tiles[i + k][j].clear();
                             tiles[i + k][j].addAction(sequence(Actions.alpha(0, .5f), Actions.fadeOut(.5f)));
-                            hasMatch = true;
                         }
                     } else if (i - 2 >= 0 &&
                             tiles[i - 1][j] != null && tiles[i - 2][j] != null &&
@@ -197,7 +193,6 @@ public class Board extends Group implements Disposable {
                             tiles[i - k][j].remove();
                             tiles[i - k][j].clear();
                             tiles[i - k][j].addAction(sequence(Actions.alpha(0, .5f), Actions.fadeOut(.5f)));
-                            hasMatch = true;
                         }
                     }
 
@@ -210,7 +205,6 @@ public class Board extends Group implements Disposable {
                             tiles[i][j + k].remove();
                             tiles[i][j + k].clear();
                             tiles[i][j + k].addAction(sequence(Actions.alpha(0, .5f), Actions.fadeOut(.5f)));
-                            hasMatch = true;
                         }
                     } else if (j - 2 >= 0 &&
                             tiles[i][j - 1] != null && tiles[i][j - 2] != null &&
@@ -220,11 +214,9 @@ public class Board extends Group implements Disposable {
                             tiles[i][j - k].remove();
                             tiles[i][j - k].clear();
                             tiles[i][j - k].addAction(sequence(Actions.alpha(0, .5f), Actions.fadeOut(.5f)));
-                            hasMatch = true;
                         }
                     }
                 }
-                hasMatch = false;
             }
         }
     }
