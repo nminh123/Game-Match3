@@ -169,6 +169,8 @@ public class Board extends Group implements Disposable {
         }
     }
 
+    //When the player swaps two tiles, the game checks for matches and removes them.
+    //What the fuck is this???
     private void findMatches() {
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[i].length; j++) {
