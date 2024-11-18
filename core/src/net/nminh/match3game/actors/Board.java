@@ -53,13 +53,14 @@ public class Board extends Group implements Disposable {
                 tile.setPosition(x, y);
                 tile.setSize(Consts.SIZE, Consts.SIZE);
                 tiles[i][j] = tile;
-                findMatches();
                 this.addActor(tile);
 
                 if (tiles[i][j] == null)
                     Gdx.app.log("Board", "Could not found Board Texture");
             }
         }
+        findMatches();
+
     }
 
     private void initialize(int row, int col, int size, Vector2 position) {
@@ -172,6 +173,7 @@ public class Board extends Group implements Disposable {
     //When the player swaps two tiles, the game checks for matches and removes them.
     //What the fvck is this???
     private void findMatches() {
+        boolean removed = false;
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[i].length; j++) {
                 if (tiles[i][j] != null) {
@@ -181,60 +183,100 @@ public class Board extends Group implements Disposable {
                     if (i + 2 < tiles.length &&
                             tiles[i + 1][j] != null && tiles[i + 2][j] != null &&
                             tiles[i + 1][j].getType() == type && tiles[i + 2][j].getType() == type) {
-                        for (int k = 0; k < 3; k++) {
+                        for (int k = 0; k < 3 && i + k < tiles.length; k++) {
 //                            tiles[i + k][j].addAction(Actions.fadeOut(0.2f));
-                            tiles[i + k][j].remove();
-                            tiles[i + k][j].clear();
-                            tiles[i + k][j].addAction(sequence(Actions.alpha(0, .5f), Actions.fadeOut(.5f)));
+                            removed = true;
+                            removeTile(tiles[i + k][j]);
+//                            tiles[i + k][j].remove();
+//                            tiles[i + k][j].clear();
+//                            tiles[i + k][j].addAction(sequence(Actions.alpha(0, .5f), Actions.fadeOut(.5f)));
                         }
+//                        fallingTiles();
                     } else if (i - 2 >= 0 &&
                             tiles[i - 1][j] != null && tiles[i - 2][j] != null &&
                             tiles[i - 1][j].getType() == type && tiles[i - 2][j].getType() == type) {
                         for (int k = 0; k < 3; k++) {
 //                            tiles[i - k][j].addAction(Actions.fadeOut(0.2f));
-                            tiles[i - k][j].remove();
-                            tiles[i - k][j].clear();
-                            tiles[i - k][j].addAction(sequence(Actions.alpha(0, .5f), Actions.fadeOut(.5f)));
+                            removed = true;
+                            removeTile(tiles[i - k][j]);
+//                            tiles[i - k][j].remove();
+//                            tiles[i - k][j].clear();
+//                            tiles[i - k][j].addAction(sequence(Actions.alpha(0, .5f), Actions.fadeOut(.5f)));
                         }
+//                        fallingTiles();
                     }
 
                     // Kiểm tra theo hàng ngang
                     if (j + 2 < tiles[i].length &&
                             tiles[i][j + 1] != null && tiles[i][j + 2] != null &&
                             tiles[i][j + 1].getType() == type && tiles[i][j + 2].getType() == type) {
-                        for (int k = 0; k < 3; k++) {
+                        for (int k = 0; k < 3 && j + k < tiles[i].length; k++) {
 //                            tiles[i][j + k].addAction(Actions.fadeOut(0.2f));
-                            tiles[i][j + k].remove();
-                            tiles[i][j + k].clear();
-                            tiles[i][j + k].addAction(sequence(Actions.alpha(0, .5f), Actions.fadeOut(.5f)));
+                            removed = true;
+                            removeTile(tiles[i][j + k]);
+//                            tiles[i][j + k].remove();
+//                            tiles[i][j + k].clear();
+//                            tiles[i][j + k].addAction(sequence(Actions.alpha(0, .5f), Actions.fadeOut(.5f)));
                         }
+//                        fallingTiles();
                     } else if (j - 2 >= 0 &&
                             tiles[i][j - 1] != null && tiles[i][j - 2] != null &&
                             tiles[i][j - 1].getType() == type && tiles[i][j - 2].getType() == type) {
                         for (int k = 0; k < 3; k++) {
 //                            tiles[i][j - k].addAction(Actions.fadeOut(0.2f));
-                            tiles[i][j - k].remove();
-                            tiles[i][j - k].clear();
-                            tiles[i][j - k].addAction(sequence(Actions.alpha(0, .5f), Actions.fadeOut(.5f)));
+                            removed = true;
+                            removeTile(tiles[i][j - k]);
                         }
+                    }
+                }
+            }
+        }
+        if (removed)
+            fallingTiles();
+    }
+
+//TODO: COI LẠI LOGIC ROW COL TRONG DUYỆT MẢNG, IN RA MÀN HÌNH CHƠI CÁC SỐ TRONG MẢNG.
+    private void removeTile(Tile tile) {
+        if (tile == null) return;
+        tile.remove();
+        tile.clear();
+        tile.addAction(sequence(Actions.alpha(0, .5f), Actions.fadeOut(.5f)));
+    }
+
+    private void fallingTiles() {
+        boolean check = true;
+        while (check) {
+            check = false;
+            for (int i = 1; i < tiles.length; i++) {
+                for (int j = 0; j < tiles[i].length; j++) {
+                    Tile tile = tiles[i][j];
+                    Tile above = tiles[i - 1][j];
+                    if (tile != null && above == null) {
+                        tile.debug();
+                        float x = position.x + j * Consts.SIZE;
+                        float y = position.y + (i - 1) * Consts.SIZE;
+                        tile.addAction(Actions.delay(1, moveTo(x, y)));
+                        tiles[i - 1][j] = tile;
+                        tiles[i][j] = null;
+                        check = true;
                     }
                 }
             }
         }
     }
 
-    private void fallingTiles() {
+    private void fallingTiles1() {
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[i].length; j++) {
                 if (tiles[i][j] == null) {
                     for (int k = i; k >= 0; k--) {
-                        if (tiles[k][j] != null) {
-                            float targetX = tiles[k][j].getX();
-                            float targetY = tiles[i][j].getY();
-                            tiles[k][j].addAction(moveTo(targetX, targetY, .15f));
-                            tiles[i][j] = tiles[k][j];
+                        Tile src = tiles[k][j];
+                        if (src != null) {
+                            float x = position.x + j * Consts.SIZE;
+                            float y = position.y + k * Consts.SIZE;
+                            src.addAction(Actions.delay(2, moveTo(x, y, .15f)));
+                            tiles[i][j] = src;
                             tiles[k][j] = null;
-                            break;
                         }
                     }
                 }
