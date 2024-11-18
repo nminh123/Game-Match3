@@ -170,7 +170,7 @@ public class Board extends Group implements Disposable {
     }
 
     //When the player swaps two tiles, the game checks for matches and removes them.
-    //What the fuck is this???
+    //What the fvck is this???
     private void findMatches() {
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[i].length; j++) {
@@ -229,9 +229,12 @@ public class Board extends Group implements Disposable {
                 if (tiles[i][j] == null) {
                     for (int k = i; k >= 0; k--) {
                         if (tiles[k][j] != null) {
-                            tiles[k][j].addAction(moveTo(tiles[i][j].getX(), tiles[i][j].getY(), .15f));
+                            float targetX = tiles[k][j].getX();
+                            float targetY = tiles[i][j].getY();
+                            tiles[k][j].addAction(moveTo(targetX, targetY, .15f));
                             tiles[i][j] = tiles[k][j];
                             tiles[k][j] = null;
+                            break;
                         }
                     }
                 }
