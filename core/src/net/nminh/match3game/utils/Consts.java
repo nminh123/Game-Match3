@@ -16,6 +16,7 @@ public class Consts
 
     public static final String VIDEO_URL = "https://www.youtube.com/watch?v=TdrL3QxjyVw";
     public static final String Video_Url = "https://www.youtube.com/watch?v=I0QCbkUao7E";
+    public static final String RESTART_BTN = "small_button_retry.png";
 
     //LOGO
     public static final String LOGO_BG = "ui/start game/logo/BG.png";

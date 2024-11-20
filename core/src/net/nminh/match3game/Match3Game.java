@@ -3,6 +3,7 @@ package net.nminh.match3game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
+import net.nminh.match3game.screens.GameScreen;
 import net.nminh.match3game.screens.HomeScreen;
 import net.nminh.match3game.utils.Assets;
 
@@ -16,7 +17,7 @@ public class Match3Game extends Game {
 	public void create()
 	{
 		Assets.Load();
-		setScreen(new HomeScreen(this));
+		setScreen(new GameScreen(this));
 		batch = new SpriteBatch();
 	}
 

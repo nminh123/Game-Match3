@@ -46,6 +46,8 @@ public class Assets
         texturesMap.put(Consts.COLOR4, new TextureRegion(new Texture(Utils.getInternalPath(Consts.COLOR4))));
         texturesMap.put(Consts.COLOR5, new TextureRegion(new Texture(Utils.getInternalPath(Consts.COLOR5))));
 
+        texturesMap.put(Consts.RESTART_BTN, new TextureRegion(new Texture(Utils.getInternalPath(Consts.RESTART_BTN))));
+
         atlas = new TextureAtlas(Utils.getInternalPath(Consts.TEXTURES_ATLAS));
         SettingPOPUP = new TextureAtlas(Utils.getInternalPath(Consts.SETTING_POPUP));
 

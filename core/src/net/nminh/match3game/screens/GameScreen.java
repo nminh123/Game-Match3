@@ -2,6 +2,9 @@ package net.nminh.match3game.screens;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 
 import net.nminh.match3game.Match3Game;
 import net.nminh.match3game.actors.Board;
@@ -19,6 +22,7 @@ public class GameScreen extends ParentScreen
     Board board;
     Grid grid;
     FramesPerSecond fps;
+    Image restart_btn;
 //    FarmGirl farmGirl;
 
     public GameScreen(Match3Game game)
@@ -38,6 +42,7 @@ public class GameScreen extends ParentScreen
         setUpGrid();
         setUpBoard();
         setUpFPS();
+        Restart();
 //        setUFarmGirl();
     }
 
@@ -65,6 +70,23 @@ public class GameScreen extends ParentScreen
         bg = new Background(Assets.getRegion(Consts.GAMESCREEN_BG));
         bg.debugAll();
         this.addActor(bg);
+    }
+
+
+    private void Restart()
+    {
+        restart_btn = new Image(Assets.getRegion(Consts.RESTART_BTN));
+        restart_btn.setPosition(0, 590);
+        restart_btn.setSize(50, 50);
+        restart_btn.addListener(new ClickListener()
+        {
+            @Override
+            public void clicked(InputEvent event, float x, float y)
+            {
+                game.setScreen(new GameScreen(game));
+            }
+        });
+        this.addActor(restart_btn);
     }
 
     private void setUpFPS()

@@ -52,12 +52,14 @@ public class Board extends Group implements Disposable {
                 tile.init(this.entities.get(num), num);
                 tile.setPosition(x, y);
                 tile.setSize(Consts.SIZE, Consts.SIZE);
+                System.out.print("(" + i + "," + j + ") ");
                 tiles[i][j] = tile;
                 this.addActor(tile);
 
                 if (tiles[i][j] == null)
                     Gdx.app.log("Board", "Could not found Board Texture");
             }
+            System.out.println();
         }
         findMatches();
 
@@ -184,26 +186,16 @@ public class Board extends Group implements Disposable {
                             tiles[i + 1][j] != null && tiles[i + 2][j] != null &&
                             tiles[i + 1][j].getType() == type && tiles[i + 2][j].getType() == type) {
                         for (int k = 0; k < 3 && i + k < tiles.length; k++) {
-//                            tiles[i + k][j].addAction(Actions.fadeOut(0.2f));
                             removed = true;
                             removeTile(tiles[i + k][j]);
-//                            tiles[i + k][j].remove();
-//                            tiles[i + k][j].clear();
-//                            tiles[i + k][j].addAction(sequence(Actions.alpha(0, .5f), Actions.fadeOut(.5f)));
                         }
-//                        fallingTiles();
                     } else if (i - 2 >= 0 &&
                             tiles[i - 1][j] != null && tiles[i - 2][j] != null &&
                             tiles[i - 1][j].getType() == type && tiles[i - 2][j].getType() == type) {
                         for (int k = 0; k < 3; k++) {
-//                            tiles[i - k][j].addAction(Actions.fadeOut(0.2f));
                             removed = true;
                             removeTile(tiles[i - k][j]);
-//                            tiles[i - k][j].remove();
-//                            tiles[i - k][j].clear();
-//                            tiles[i - k][j].addAction(sequence(Actions.alpha(0, .5f), Actions.fadeOut(.5f)));
                         }
-//                        fallingTiles();
                     }
 
                     // Kiểm tra theo hàng ngang
@@ -211,19 +203,13 @@ public class Board extends Group implements Disposable {
                             tiles[i][j + 1] != null && tiles[i][j + 2] != null &&
                             tiles[i][j + 1].getType() == type && tiles[i][j + 2].getType() == type) {
                         for (int k = 0; k < 3 && j + k < tiles[i].length; k++) {
-//                            tiles[i][j + k].addAction(Actions.fadeOut(0.2f));
                             removed = true;
                             removeTile(tiles[i][j + k]);
-//                            tiles[i][j + k].remove();
-//                            tiles[i][j + k].clear();
-//                            tiles[i][j + k].addAction(sequence(Actions.alpha(0, .5f), Actions.fadeOut(.5f)));
                         }
-//                        fallingTiles();
                     } else if (j - 2 >= 0 &&
                             tiles[i][j - 1] != null && tiles[i][j - 2] != null &&
                             tiles[i][j - 1].getType() == type && tiles[i][j - 2].getType() == type) {
                         for (int k = 0; k < 3; k++) {
-//                            tiles[i][j - k].addAction(Actions.fadeOut(0.2f));
                             removed = true;
                             removeTile(tiles[i][j - k]);
                         }
@@ -244,6 +230,43 @@ public class Board extends Group implements Disposable {
     }
 
     private void fallingTiles() {
+        boolean check = true;
+        while (check) {
+            check = false;
+//            for (int i = 1; i < tiles.length; i++) { //Đổi
+//                for (int j = 0; j < tiles[i].length; j++) { //Đổi
+//                    Tile tile = tiles[i][j]; //Đổi
+//                    Tile above = tiles[i - 1][j]; //Đổi
+//                    if (tile != null && above == null) {
+//                        tile.debug();
+//                        float x = position.x + j * Consts.SIZE;
+//                        float y = position.y + (i - 1) * Consts.SIZE;
+//                        tile.addAction(Actions.delay(1, moveTo(x, y)));
+//                        tiles[i - 1][j] = tile;
+//                        tiles[i][j] = null;
+//                        check = true;
+//                    }
+//                }
+//            }
+            for (int i = tiles.length; i <= 1; i--) { //Đổi
+                for (int j = tiles[i].length; j <= 0; j--) { //Đổi
+                    Tile tile = tiles[i][j]; //Đổi
+                    Tile above = tiles[i - 1][j]; //Đổi
+                    if (tile != null && above == null) {
+                        tile.debug();
+                        float x = position.x + j * Consts.SIZE;
+                        float y = position.y + (i - 1) * Consts.SIZE;
+                        tile.addAction(Actions.delay(1, moveTo(x, y)));
+                        tiles[i - 1][j] = tile;
+                        tiles[i][j] = null;
+                        check = true;
+                    }
+                }
+            }
+        }
+    }
+
+    private void fallingTiles2() {
         boolean check = true;
         while (check) {
             check = false;
