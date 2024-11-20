@@ -1,5 +1,6 @@
 package net.nminh.match3game.screens;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -83,7 +84,7 @@ public class GameScreen extends ParentScreen
             @Override
             public void clicked(InputEvent event, float x, float y)
             {
-                game.setScreen(new GameScreen(game));
+                ((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen(game));
             }
         });
         this.addActor(restart_btn);
