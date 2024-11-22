@@ -2,10 +2,13 @@ package net.nminh.match3game.screens;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 
 import net.nminh.match3game.Match3Game;
 import net.nminh.match3game.actors.Board;
@@ -23,7 +26,8 @@ public class GameScreen extends ParentScreen
     Board board;
     Grid grid;
     FramesPerSecond fps;
-    Image restart_btn;
+    Label restart;
+    BitmapFont font;
 //    FarmGirl farmGirl;
 
     public GameScreen(Match3Game game)
@@ -76,18 +80,22 @@ public class GameScreen extends ParentScreen
 
     private void Restart()
     {
-        restart_btn = new Image(Assets.getRegion(Consts.RESTART_BTN));
-        restart_btn.setPosition(0, 590);
-        restart_btn.setSize(50, 50);
-        restart_btn.addListener(new ClickListener()
-        {
+        font = new BitmapFont();
+        Label.LabelStyle labelStyle = new Label.LabelStyle(font, new Color(0,0,0,1));
+
+        restart = new Label("Restart", labelStyle);
+        restart.setPosition(5,Gdx.graphics.getHeight() - 20);
+        restart.setAlignment(Align.right);
+        restart.setText("Restart");
+        restart.addListener(new ClickListener() {
             @Override
-            public void clicked(InputEvent event, float x, float y)
-            {
-                ((Game)Gdx.app.getApplicationListener()).setScreen(new GameScreen(game));
+            public void clicked(InputEvent event, float x, float y) {
+                ((Game) Gdx.app.getApplicationListener()).setScreen(new GameScreen(game));
+                System.out.println("Restart");
             }
         });
-        this.addActor(restart_btn);
+
+        addActor(restart);
     }
 
     private void setUpFPS()
@@ -125,5 +133,6 @@ public class GameScreen extends ParentScreen
         board.dispose();
         bg.dispose();
 //        farmGirl.dispose();
+        font.dispose();
     }
 }

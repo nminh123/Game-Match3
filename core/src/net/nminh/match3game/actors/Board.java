@@ -233,9 +233,40 @@ public class Board extends Group implements Disposable {
         boolean check = true;
         while (check) {
             check = false;
-//            for (int i = 1; i < tiles.length; i++) { //Đổi
+//            for (int i = 0; i < tiles.length; i++) { //Đổi
 //                for (int j = 0; j < tiles[i].length; j++) { //Đổi
 //                    Tile tile = tiles[i][j]; //Đổi
+//                    Tile under = tiles[i + 1][j]; //Đổi
+//                    if (tile != null && under == null) {
+//                        tile.debug();
+//                        float x = position.x + j * Consts.SIZE;
+//                        float y = position.y + (i - 1) * Consts.SIZE;
+//                        tile.addAction(Actions.delay(1, moveTo(x, y)));
+//                        tiles[i - 1][j] = tile;
+//                        tiles[i][j] = null;
+//                        check = true;
+//                    }
+//                }
+//            }
+            for (int i = 0; i < tiles.length - 1; i++) {
+                for (int j = 0; j < tiles.length; j++) {
+                    Tile tile = tiles[i][j];
+                    Tile under = tiles[i + 1][j];
+                    if (tile != null && under == null) {
+                        tile.debug();
+                        float x = position.x + j * Consts.SIZE;
+                        float y = position.y + (i + 1) * Consts.SIZE;
+                        tile.addAction(Actions.delay(1, moveTo(x, y)));
+                        tiles[i + 1][j] = tile;
+                        tiles[i][j] = null;
+                        check = true;
+                    }
+                }
+            }
+
+//            for (int i = tiles.length; i > 0; i--) { //Đổi
+//                for (int j = tiles[i - 1].length - 1; j > 0; j--) { //Đổi
+//                    Tile tile = tiles[i-1][j]; //Đổi
 //                    Tile above = tiles[i - 1][j]; //Đổi
 //                    if (tile != null && above == null) {
 //                        tile.debug();
@@ -248,21 +279,6 @@ public class Board extends Group implements Disposable {
 //                    }
 //                }
 //            }
-            for (int i = tiles.length; i <= 1; i--) { //Đổi
-                for (int j = tiles[i].length; j <= 0; j--) { //Đổi
-                    Tile tile = tiles[i][j]; //Đổi
-                    Tile above = tiles[i - 1][j]; //Đổi
-                    if (tile != null && above == null) {
-                        tile.debug();
-                        float x = position.x + j * Consts.SIZE;
-                        float y = position.y + (i - 1) * Consts.SIZE;
-                        tile.addAction(Actions.delay(1, moveTo(x, y)));
-                        tiles[i - 1][j] = tile;
-                        tiles[i][j] = null;
-                        check = true;
-                    }
-                }
-            }
         }
     }
 
