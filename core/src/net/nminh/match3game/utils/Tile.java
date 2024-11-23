@@ -22,7 +22,7 @@ public class Tile extends Image
         setSize(getWidth(), getHeight());
         setBounds(getX(), getY(), getWidth(), getHeight());
         setDrawable(new TextureRegionDrawable(sprite));
-//        debug();
+        debug();
         this.type = index;
     }
 
