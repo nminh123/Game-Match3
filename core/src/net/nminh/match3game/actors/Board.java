@@ -25,9 +25,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import net.nminh.match3game.utils.Consts;
 import net.nminh.match3game.utils.Tile;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Board extends Group implements Disposable {
     Array<TextureAtlas.AtlasRegion> entities;
     Tile[][] tiles = new Tile[8][8];
+    List<Tile>[][] tiless;
     Vector2 position;
 
     public Board(Array<TextureAtlas.AtlasRegion> sprites, int row, int col, int size, Vector2 position) {
@@ -256,37 +260,22 @@ public class Board extends Group implements Disposable {
 //                    }
 //                }
 //            }
+
             for (int i = 0; i < tiles.length; i++) {
                 for (int j = 1; j < tiles[i].length - 1; j++) {
-                    Tile tile = tiles[i][j];
-                    Tile under = tiles[i][j + 1];
-                    if (tile != null && under == null) {
-                        tile.debug();
+                    Tile above = tiles[i][j + 1];
+                    Tile under = tiles[i][j];
+                    if (above != null && under == null) {
+                        above.debug();
                         float x = position.x + (j + 1) * Consts.SIZE;
                         float y = position.y + i * Consts.SIZE;
-                        tile.addAction(Actions.delay(1, moveTo(x, y)));
-                        tiles[i][j + 1] = tile;
+                        above.addAction(Actions.delay(1, moveTo(x, y)));
+                        tiles[i][j] = above;
                         tiles[i][j] = null;
                         check = true;
                     }
                 }
             }
-
-//            for (int i = tiles.length; i > 0; i--) { //Đổi
-//                for (int j = tiles[i - 1].length - 1; j > 0; j--) { //Đổi
-//                    Tile tile = tiles[i-1][j]; //Đổi
-//                    Tile above = tiles[i - 1][j]; //Đổi
-//                    if (tile != null && above == null) {
-//                        tile.debug();
-//                        float x = position.x + j * Consts.SIZE;
-//                        float y = position.y + (i - 1) * Consts.SIZE;
-//                        tile.addAction(Actions.delay(1, moveTo(x, y)));
-//                        tiles[i - 1][j] = tile;
-//                        tiles[i][j] = null;
-//                        check = true;
-//                    }
-//                }
-//            }
         }
     }
 
